@@ -1,0 +1,13 @@
+C:\Users\lolma\Desktop\Content\Code\TaskPet\bin\Debug\TaskPet.exe.config
+C:\Users\lolma\Desktop\Content\Code\TaskPet\bin\Debug\TaskPet.exe
+C:\Users\lolma\Desktop\Content\Code\TaskPet\bin\Debug\TaskPet.pdb
+C:\Users\lolma\Desktop\Content\Code\TaskPet\obj\Debug\TaskPet.csproj.AssemblyReference.cache
+C:\Users\lolma\Desktop\Content\Code\TaskPet\obj\Debug\TaskPet.csproj.SuggestedBindingRedirects.cache
+C:\Users\lolma\Desktop\Content\Code\TaskPet\obj\Debug\TaskPet.Form1.resources
+C:\Users\lolma\Desktop\Content\Code\TaskPet\obj\Debug\TaskPet.Properties.Resources.resources
+C:\Users\lolma\Desktop\Content\Code\TaskPet\obj\Debug\TaskPet.csproj.GenerateResource.cache
+C:\Users\lolma\Desktop\Content\Code\TaskPet\obj\Debug\TaskPet.csproj.CoreCompileInputs.cache
+C:\Users\lolma\Desktop\Content\Code\TaskPet\obj\Debug\TaskPet.exe
+C:\Users\lolma\Desktop\Content\Code\TaskPet\obj\Debug\TaskPet.pdb
+C:\Users\lolma\Desktop\Content\Code\TaskPet\bin\Debug\DragAssembly.dll
+C:\Users\lolma\Desktop\Content\Code\TaskPet\obj\Debug\TaskPet.csproj.CopyComplete
