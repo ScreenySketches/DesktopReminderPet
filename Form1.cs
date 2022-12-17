@@ -35,15 +35,19 @@ namespace TaskPet
         public bool isFacingLeft = true;
         public bool isBeingDragged;
         public bool isFalling = true;
+        public bool isThinking;
+        public bool Override;
         int Force;
-        public int movementSpeed;
-        public int walkDuration;
-        public int idleDuration;
-        public int turnDuration;
+        int movementSpeed;
+        int walkDuration;
+        int idleDuration;
+        int turnDuration;
         Random randomGenerator = new Random();
         Rectangle windowRectangle = new Rectangle();
         Rectangle desktopRectangle = new Rectangle();
         private Point lastLocation;
+        
+
 
 
 
@@ -55,7 +59,7 @@ namespace TaskPet
             
             for(int i = 0; i < 3; i++)
             {
-                while(isBeingDragged == false)
+                while(!isBeingDragged)
                 {
                     turnDuration = randomGenerator.Next(3000, 13000);
                     isFacingLeft = false;
@@ -110,13 +114,140 @@ namespace TaskPet
 
         public void timerAnimateSprite_Tick(object sender, EventArgs e)
         {
-            if (isFalling)
+            if (!Override)
+            {
+                if (isFalling)
+                {
+                    timerAnimateSprite.Interval = 100;
+
+                    pb.Image = imageListFalling.Images[imageNumb];
+
+                    if (imageNumb == imageListFalling.Images.Count - 1)
+                    {
+                        imageNumb = 0;
+                    }
+                    else
+                    {
+                        imageNumb++;
+                    }
+
+                }
+                else if (isBeingDragged)
+                {
+                    timerAnimateSprite.Interval = 100;
+
+
+                    if (isFacingLeft)
+                    {
+                        pb.Image = imageListDragL.Images[imageNumb];
+
+                        if (imageNumb == imageListDragL.Images.Count - 1)
+                        {
+                            imageNumb = 0;
+                        }
+                        else
+                        {
+                            imageNumb++;
+                        }
+                    }
+                    else
+                    {
+                        pb.Image = imageListDragR.Images[imageNumb];
+
+                        if (imageNumb == imageListDragR.Images.Count - 1)
+                        {
+                            imageNumb = 0;
+                        }
+                        else
+                        {
+                            imageNumb++;
+                        }
+                    }
+
+
+                }
+                else if (isIdle)
+                {
+                    timerAnimateSprite.Interval = 165;
+
+                    if (isFacingLeft)
+                    {
+                        pb.Image = imageListIdleL.Images[imageNumb];
+
+                        if (imageNumb == imageListIdleL.Images.Count - 1)
+                        {
+                            imageNumb = 0;
+                        }
+                        else
+                        {
+                            imageNumb++;
+                        }
+                    }
+                    else
+                    {
+                        pb.Image = imageListIdleR.Images[imageNumb];
+
+                        if (imageNumb == imageListIdleR.Images.Count - 1)
+                        {
+                            imageNumb = 0;
+                        }
+                        else
+                        {
+                            imageNumb++;
+                        }
+                    }
+
+
+                }
+                else if (isWalking)
+                {
+                    timerAnimateSprite.Interval = 190 - (10 * movementSpeed);
+
+                    if (isFacingLeft)
+                    {
+                        pb.Image = imageListWalkingL.Images[imageNumb];
+
+                        if (imageNumb == imageListWalkingL.Images.Count - 1)
+                        {
+                            imageNumb = 0;
+                        }
+                        else
+                        {
+                            imageNumb++;
+                        }
+
+
+
+
+
+
+                    }
+                    else
+                    {
+                        pb.Image = imageListWalkingR.Images[imageNumb];
+
+                        if (imageNumb == imageListWalkingR.Images.Count - 1)
+                        {
+                            imageNumb = 0;
+                        }
+                        else
+                        {
+                            imageNumb++;
+                        }
+
+
+
+                    }
+
+                }
+            }
+            else if(isThinking && Override)
             {
                 timerAnimateSprite.Interval = 100;
 
-                pb.Image = imageListFalling.Images[imageNumb];
+                pb.Image = imageListThinking.Images[imageNumb];
 
-                if (imageNumb == imageListFalling.Images.Count - 1)
+                if (imageNumb == imageListThinking.Images.Count - 1)
                 {
                     imageNumb = 0;
                 }
@@ -124,127 +255,19 @@ namespace TaskPet
                 {
                     imageNumb++;
                 }
-
-            }else if (isBeingDragged)
-            {
-                timerAnimateSprite.Interval = 100;
-
-
-                if (isFacingLeft)
-                {
-                    pb.Image = imageListDragL.Images[imageNumb];
-
-                    if (imageNumb == imageListDragL.Images.Count - 1)
-                    {
-                        imageNumb = 0;
-                    }
-                    else
-                    {
-                        imageNumb++;
-                    }
-                }
-                else
-                {
-                    pb.Image = imageListDragR.Images[imageNumb];
-
-                    if (imageNumb == imageListDragR.Images.Count - 1)
-                    {
-                        imageNumb = 0;
-                    }
-                    else
-                    {
-                        imageNumb++;
-                    }
-                }
-
-
             }
-            else if (isIdle)
-            {
-                timerAnimateSprite.Interval = 165;
-
-                if (isFacingLeft)
-                {
-                    pb.Image = imageListIdleL.Images[imageNumb];
-
-                    if (imageNumb == imageListIdleL.Images.Count - 1)
-                    {
-                        imageNumb = 0;
-                    }
-                    else
-                    {
-                        imageNumb++;
-                    }
-                }
-                else
-                {
-                    pb.Image = imageListIdleR.Images[imageNumb];
-
-                    if (imageNumb == imageListIdleR.Images.Count - 1)
-                    {
-                        imageNumb = 0;
-                    }
-                    else
-                    {
-                        imageNumb++;
-                    }
-                }
-
-
-            }
-            else if (isWalking)
-            {
-                timerAnimateSprite.Interval = 190 - (10 * movementSpeed);
-
-                if (isFacingLeft)
-                {
-                    pb.Image = imageListWalkingL.Images[imageNumb];
-
-                    if (imageNumb == imageListWalkingL.Images.Count - 1)
-                    {
-                        imageNumb = 0;
-                    }
-                    else
-                    {
-                        imageNumb++;
-                    }
-
-
-
-
-
-
-                }
-                else
-                {
-                    pb.Image = imageListWalkingR.Images[imageNumb];
-
-                    if (imageNumb == imageListWalkingR.Images.Count - 1)
-                    {
-                        imageNumb = 0;
-                    }
-                    else
-                    {
-                        imageNumb++;
-                    }
-
-
-
-                }
-
-            }
-
-
-
-
         }
 
 
         private void UpdateTimer_Tick(object sender, EventArgs e)
-        {
-            //     v Dragging Check v
-
-            
+        {           
+            if(CustomReminder.ThinkBubbleClosed && isThinking)
+            {
+                isThinking = false;
+                Override = false;
+                imageNumb = 0;
+                CustomReminder.ThinkBubbleClosed = false;
+            }
 
             //     v Bounds Check v
 
@@ -252,60 +275,72 @@ namespace TaskPet
 
             //     v Movement v
 
-            if (isBeingDragged)
+            if (!Override)
             {
-
-            }
-            else if (!isFalling)
-            {
-                if (isWalking)
+                if (isBeingDragged)
                 {
-                    if (isFacingLeft)
-                    {
-
-                        Left -= movementSpeed - 7;
-
-
-
-                    }
-                    else
-                    {
-                        Left += movementSpeed - 7;
-
-                    }
-
-                    // v Collision Detection v
-
-                    if (!desktopRectangle.Contains(windowRectangle))
-                    {
-                        if (windowRectangle.Left < desktopRectangle.Left)
-                        {
-                            isFacingLeft = false;
-                        }
-                        if (windowRectangle.Right > desktopRectangle.Right)
-                        {
-                            isFacingLeft = true;
-                        }
-                    }
 
                 }
-            }
-            if (isFalling == true)
-            {               
-                Top -= Force;
-                Force -= 1;
-            }
-            if(windowRectangle.Top + windowRectangle.Height >= desktopRectangle.Height)
+                else if (!isFalling)
+                {
+                    if (isWalking)
+                    {
+                        if (isFacingLeft)
+                        {
+
+                            Left -= movementSpeed - 7;
+
+
+
+                        }
+                        else
+                        {
+                            Left += movementSpeed - 7;
+
+                        }
+
+                        // v Collision Detection v
+
+                        if (!desktopRectangle.Contains(windowRectangle))
+                        {
+                            if (windowRectangle.Left < desktopRectangle.Left)
+                            {
+                                isFacingLeft = false;
+                            }
+                            if (windowRectangle.Right > desktopRectangle.Right)
+                            {
+                                isFacingLeft = true;
+                            }
+                        }
+
+                    }
+                }
+                if (isFalling == true)
+                {
+                    Top -= Force;
+                    Force -= 1;
+                }
+                if (windowRectangle.Top + windowRectangle.Height >= desktopRectangle.Height)
+                {
+                    Top = desktopRectangle.Height - windowRectangle.Height;
+                    isFalling = false;
+                    Force = 0;
+                }
+                else if (!isBeingDragged)
+                {
+                    isFalling = true;
+                    Top += 1;
+                }
+                else if (isBeingDragged && isFalling)
+                {
+                    isFalling = false;
+                    Force = 0;
+                }
+            }else if(isBeingDragged && Override)
             {
-                Top = desktopRectangle.Height - windowRectangle.Height;
-                isFalling = false;
-                Force = 0;
+                isBeingDragged = false;
             }
-            else if(!isBeingDragged)
-            {
-                isFalling = true;
-                Top += 1;               
-            }
+            
         }       
         private void pb_Hover(object sender, EventArgs e)
         {
@@ -321,9 +356,12 @@ namespace TaskPet
         {
             isBeingDragged = true;
             lastLocation = e.Location;
-            if(e.Button == MouseButtons.Right)
+            if (!isThinking)
             {
-                contextMenu.Show(this, new Point(e.X + ((Control)sender).Left + 20, e.Y + ((Control)sender).Top + 20));
+                if (e.Button == MouseButtons.Right)
+                {
+                    contextMenu.Show(this, new Point(e.X + ((Control)sender).Left + 20, e.Y + ((Control)sender).Top + 20));
+                }
             }
             
         }
@@ -346,6 +384,32 @@ namespace TaskPet
         private void exitToolStripMenuItem_Click(object sender, EventArgs e)
         {
             Close();
+        }       
+
+        public void InitiateThinkBubble()
+        {           
+            Override = true;
+            isThinking = true;            
         }
+
+        private void addReminderToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            InitiateThinkBubble();
+            CustomReminder customReminder = new CustomReminder(false, false);
+            customReminder.Show();
+            customReminder.Location = new Point(windowRectangle.X + 80, windowRectangle.Y - 250);
+        }
+
+        private void timerToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            InitiateThinkBubble();
+            CustomReminder customReminder = new CustomReminder(false, true);
+            customReminder.Show();
+            customReminder.Location = new Point(windowRectangle.X + 80, windowRectangle.Y - 250);
+
+            
+        }
+
+        
     }
 }

@@ -11,3 +11,4 @@ C:\Users\lolma\Desktop\Content\Code\TaskPet\obj\Debug\TaskPet.exe
 C:\Users\lolma\Desktop\Content\Code\TaskPet\obj\Debug\TaskPet.pdb
 C:\Users\lolma\Desktop\Content\Code\TaskPet\bin\Debug\DragAssembly.dll
 C:\Users\lolma\Desktop\Content\Code\TaskPet\obj\Debug\TaskPet.csproj.CopyComplete
+C:\Users\lolma\Desktop\Content\Code\TaskPet\obj\Debug\TaskPet.CustomReminder.resources
