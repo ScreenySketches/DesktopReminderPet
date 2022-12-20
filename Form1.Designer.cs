@@ -41,15 +41,16 @@
             this.imageListDragR = new System.Windows.Forms.ImageList(this.components);
             this.imageListFalling = new System.Windows.Forms.ImageList(this.components);
             this.contextMenu = new System.Windows.Forms.ContextMenuStrip(this.components);
-            this.exitToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.addReminderToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.imageListThinking = new System.Windows.Forms.ImageList(this.components);
             this.specificDateToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.timerToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.oneTimeToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.dailyToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.weeklyToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.monthlyToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.timerToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.exitToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.imageListThinking = new System.Windows.Forms.ImageList(this.components);
+            this.notify = new System.Windows.Forms.NotifyIcon(this.components);
             ((System.ComponentModel.ISupportInitialize)(this.pb)).BeginInit();
             this.contextMenu.SuspendLayout();
             this.SuspendLayout();
@@ -151,14 +152,7 @@
             this.addReminderToolStripMenuItem,
             this.exitToolStripMenuItem});
             this.contextMenu.Name = "contextMenu";
-            this.contextMenu.Size = new System.Drawing.Size(181, 82);           
-            // 
-            // exitToolStripMenuItem
-            // 
-            this.exitToolStripMenuItem.Name = "exitToolStripMenuItem";
-            this.exitToolStripMenuItem.Size = new System.Drawing.Size(180, 28);
-            this.exitToolStripMenuItem.Text = "Kill";
-            this.exitToolStripMenuItem.Click += new System.EventHandler(this.exitToolStripMenuItem_Click);
+            this.contextMenu.Size = new System.Drawing.Size(179, 60);
             // 
             // addReminderToolStripMenuItem
             // 
@@ -166,9 +160,58 @@
             this.specificDateToolStripMenuItem,
             this.timerToolStripMenuItem});
             this.addReminderToolStripMenuItem.Name = "addReminderToolStripMenuItem";
-            this.addReminderToolStripMenuItem.Size = new System.Drawing.Size(180, 28);
+            this.addReminderToolStripMenuItem.Size = new System.Drawing.Size(178, 28);
             this.addReminderToolStripMenuItem.Text = "Add Reminder";
             this.addReminderToolStripMenuItem.Click += new System.EventHandler(this.addReminderToolStripMenuItem_Click);
+            // 
+            // specificDateToolStripMenuItem
+            // 
+            this.specificDateToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.oneTimeToolStripMenuItem,
+            this.dailyToolStripMenuItem,
+            this.weeklyToolStripMenuItem,
+            this.monthlyToolStripMenuItem});
+            this.specificDateToolStripMenuItem.Name = "specificDateToolStripMenuItem";
+            this.specificDateToolStripMenuItem.Size = new System.Drawing.Size(166, 28);
+            this.specificDateToolStripMenuItem.Text = "Specific Date";
+            // 
+            // oneTimeToolStripMenuItem
+            // 
+            this.oneTimeToolStripMenuItem.Name = "oneTimeToolStripMenuItem";
+            this.oneTimeToolStripMenuItem.Size = new System.Drawing.Size(147, 28);
+            this.oneTimeToolStripMenuItem.Text = "One-Time";
+            // 
+            // dailyToolStripMenuItem
+            // 
+            this.dailyToolStripMenuItem.Name = "dailyToolStripMenuItem";
+            this.dailyToolStripMenuItem.Size = new System.Drawing.Size(147, 28);
+            this.dailyToolStripMenuItem.Text = "Daily";
+            // 
+            // weeklyToolStripMenuItem
+            // 
+            this.weeklyToolStripMenuItem.Name = "weeklyToolStripMenuItem";
+            this.weeklyToolStripMenuItem.Size = new System.Drawing.Size(147, 28);
+            this.weeklyToolStripMenuItem.Text = "Weekly";
+            // 
+            // monthlyToolStripMenuItem
+            // 
+            this.monthlyToolStripMenuItem.Name = "monthlyToolStripMenuItem";
+            this.monthlyToolStripMenuItem.Size = new System.Drawing.Size(147, 28);
+            this.monthlyToolStripMenuItem.Text = "Monthly";
+            // 
+            // timerToolStripMenuItem
+            // 
+            this.timerToolStripMenuItem.Name = "timerToolStripMenuItem";
+            this.timerToolStripMenuItem.Size = new System.Drawing.Size(166, 28);
+            this.timerToolStripMenuItem.Text = "Timer";
+            this.timerToolStripMenuItem.Click += new System.EventHandler(this.timerToolStripMenuItem_Click);
+            // 
+            // exitToolStripMenuItem
+            // 
+            this.exitToolStripMenuItem.Name = "exitToolStripMenuItem";
+            this.exitToolStripMenuItem.Size = new System.Drawing.Size(178, 28);
+            this.exitToolStripMenuItem.Text = "Kill";
+            this.exitToolStripMenuItem.Click += new System.EventHandler(this.exitToolStripMenuItem_Click);
             // 
             // imageListThinking
             // 
@@ -184,47 +227,11 @@
             this.imageListThinking.Images.SetKeyName(7, "think_8.png");
             this.imageListThinking.Images.SetKeyName(8, "think_9.png");
             // 
-            // specificDateToolStripMenuItem
+            // notify
             // 
-            this.specificDateToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.oneTimeToolStripMenuItem,
-            this.dailyToolStripMenuItem,
-            this.weeklyToolStripMenuItem,
-            this.monthlyToolStripMenuItem});
-            this.specificDateToolStripMenuItem.Name = "specificDateToolStripMenuItem";
-            this.specificDateToolStripMenuItem.Size = new System.Drawing.Size(180, 28);
-            this.specificDateToolStripMenuItem.Text = "Specific Date";
-            // 
-            // timerToolStripMenuItem
-            // 
-            this.timerToolStripMenuItem.Name = "timerToolStripMenuItem";
-            this.timerToolStripMenuItem.Size = new System.Drawing.Size(180, 28);
-            this.timerToolStripMenuItem.Text = "Timer";
-            this.timerToolStripMenuItem.Click += new System.EventHandler(this.timerToolStripMenuItem_Click);
-            // 
-            // oneTimeToolStripMenuItem
-            // 
-            this.oneTimeToolStripMenuItem.Name = "oneTimeToolStripMenuItem";
-            this.oneTimeToolStripMenuItem.Size = new System.Drawing.Size(180, 28);
-            this.oneTimeToolStripMenuItem.Text = "One-Time";
-            // 
-            // dailyToolStripMenuItem
-            // 
-            this.dailyToolStripMenuItem.Name = "dailyToolStripMenuItem";
-            this.dailyToolStripMenuItem.Size = new System.Drawing.Size(180, 28);
-            this.dailyToolStripMenuItem.Text = "Daily";
-            // 
-            // weeklyToolStripMenuItem
-            // 
-            this.weeklyToolStripMenuItem.Name = "weeklyToolStripMenuItem";
-            this.weeklyToolStripMenuItem.Size = new System.Drawing.Size(180, 28);
-            this.weeklyToolStripMenuItem.Text = "Weekly";
-            // 
-            // monthlyToolStripMenuItem
-            // 
-            this.monthlyToolStripMenuItem.Name = "monthlyToolStripMenuItem";
-            this.monthlyToolStripMenuItem.Size = new System.Drawing.Size(180, 28);
-            this.monthlyToolStripMenuItem.Text = "Monthly";
+            this.notify.BalloonTipIcon = System.Windows.Forms.ToolTipIcon.Info;
+            this.notify.Text = "notification";
+            this.notify.Visible = true;
             // 
             // Form1
             // 
@@ -268,6 +275,7 @@
         private System.Windows.Forms.ToolStripMenuItem dailyToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem weeklyToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem monthlyToolStripMenuItem;
+        public System.Windows.Forms.NotifyIcon notify;
     }
 }
 

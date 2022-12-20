@@ -7,6 +7,13 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using System.Globalization;
+using System.Diagnostics;
+using System.IO;
+using Newtonsoft.Json;
+using Newtonsoft.Json.Serialization;
+
+
 
 
 
@@ -24,7 +31,7 @@ namespace TaskPet
             RectInitialize();
             
             
-
+            
         }
 
         //variables
@@ -42,11 +49,15 @@ namespace TaskPet
         int walkDuration;
         int idleDuration;
         int turnDuration;
+        string currentTime;
+        string anticipatedTime;
         Random randomGenerator = new Random();
         Rectangle windowRectangle = new Rectangle();
-        Rectangle desktopRectangle = new Rectangle();
-        private Point lastLocation;
+        Rectangle desktopRectangle = new Rectangle();       
+        private Point lastLocation;        
+        List<ReminderTimer> timerListSorted = new List<ReminderTimer>();
         
+
 
 
 
@@ -109,7 +120,7 @@ namespace TaskPet
 
         private void Form1_Load(object sender, EventArgs e)
         {
-
+            
         }
 
         public void timerAnimateSprite_Tick(object sender, EventArgs e)
@@ -258,15 +269,40 @@ namespace TaskPet
             }
         }
 
+        bool CheckTimeOnce = false;
 
         private void UpdateTimer_Tick(object sender, EventArgs e)
-        {           
+        {     
+            currentTime = DateTime.Now.ToString("hh:mm:ss tt");
+            
+
+            if(!CheckTimeOnce && currentTime == anticipatedTime)
+            {
+                Debug.WriteLine("ALERT ALERT ALERT ALERT");
+                RemoveLatestTimer();
+
+                
+
+                CheckTimeOnce = true;
+
+            }else if(currentTime != anticipatedTime)
+            {
+                CheckTimeOnce = false; 
+            }
+
             if(CustomReminder.ThinkBubbleClosed && isThinking)
             {
                 isThinking = false;
                 Override = false;
                 imageNumb = 0;
                 CustomReminder.ThinkBubbleClosed = false;
+                
+            }
+
+            if (CustomReminder.MadeTimer)
+            {
+                CalculateAnticipatedTime("0");
+                CustomReminder.MadeTimer = false;
             }
 
             //     v Bounds Check v
@@ -407,6 +443,57 @@ namespace TaskPet
             customReminder.Show();
             customReminder.Location = new Point(windowRectangle.X + 80, windowRectangle.Y - 250);
 
+            
+        }
+
+        private void CalculateAnticipatedTime(string topSeconds)
+        {
+            LoadReminderList();
+            topSeconds = timerListSorted[0].Seconds;
+            
+            anticipatedTime = DateTime.Now.AddSeconds(Convert.ToDouble(topSeconds)).ToString("hh:mm:ss tt");
+
+        }
+
+        private void LoadReminderList()
+        {
+            List<ReminderTimer> timerList = new List<ReminderTimer>();
+
+            if (!File.Exists(@"C:\TaskPet_Data\Timerdb.txt"))
+           {
+                Directory.CreateDirectory(@"C:\TaskPet_Data");
+                System.IO.File.Create(@"C:\TaskPet_Data\Timerdb.txt");
+            }
+            else if (File.Exists(@"C:\TaskPet_Data\Timerdb.txt"))
+            {
+                string json = File.ReadAllText(@"C:\TaskPet_Data\Timerdb.txt");
+                timerList = JsonConvert.DeserializeObject<List<ReminderTimer>>(json);
+            }
+
+                
+            timerListSorted = timerList.OrderBy(timer => timer.Seconds).ToList();
+
+
+
+            
+        }
+
+        private void RemoveLatestTimer()
+        {
+            timerListSorted.RemoveAt(0);
+
+            string jsone = JsonConvert.SerializeObject(timerListSorted.ToArray(), Formatting.Indented);
+            Directory.CreateDirectory(@"C:\TaskPet_Data");
+            System.IO.File.WriteAllText(@"C:\TaskPet_Data\Timerdb.txt", jsone);
+
+            if(timerListSorted.Count == 0)
+            {
+                return;
+            }
+            else
+            {
+                CalculateAnticipatedTime("0");
+            }
             
         }
 

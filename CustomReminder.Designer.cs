@@ -46,6 +46,13 @@
             this.UpdateTimer = new System.Windows.Forms.Timer(this.components);
             this.buttonNextTimer = new System.Windows.Forms.Button();
             this.buttonCancelTimer = new System.Windows.Forms.Button();
+            this.buttonConfirm = new System.Windows.Forms.Button();
+            this.buttonBack = new System.Windows.Forms.Button();
+            this.inputTitle = new System.Windows.Forms.TextBox();
+            this.inputDescription = new System.Windows.Forms.TextBox();
+            this.labelTitle = new System.Windows.Forms.Label();
+            this.labelDescription = new System.Windows.Forms.Label();
+            this.invalid = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.reminderpb)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.thoughtdot_1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
@@ -95,7 +102,7 @@
             // 
             this.buttonTimer.BackColor = System.Drawing.Color.White;
             this.buttonTimer.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
-            this.buttonTimer.Location = new System.Drawing.Point(222, 225);
+            this.buttonTimer.Location = new System.Drawing.Point(1, 201);
             this.buttonTimer.Name = "buttonTimer";
             this.buttonTimer.Size = new System.Drawing.Size(121, 23);
             this.buttonTimer.TabIndex = 4;
@@ -123,10 +130,10 @@
             // 
             // inputHours
             // 
-            this.inputHours.Location = new System.Drawing.Point(321, 227);
-            this.inputHours.Mask = "00";
+            this.inputHours.InsertKeyMode = System.Windows.Forms.InsertKeyMode.Overwrite;
+            this.inputHours.Location = new System.Drawing.Point(321, 214);
+            this.inputHours.Mask = "##";
             this.inputHours.Name = "inputHours";
-            this.inputHours.PromptChar = '0';
             this.inputHours.Size = new System.Drawing.Size(19, 20);
             this.inputHours.TabIndex = 10;
             this.inputHours.ValidatingType = typeof(int);
@@ -136,7 +143,7 @@
             this.labelHours.AutoSize = true;
             this.labelHours.BackColor = System.Drawing.Color.White;
             this.labelHours.Font = new System.Drawing.Font("MV Boli", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.labelHours.Location = new System.Drawing.Point(282, 228);
+            this.labelHours.Location = new System.Drawing.Point(2, 227);
             this.labelHours.Name = "labelHours";
             this.labelHours.Size = new System.Drawing.Size(47, 17);
             this.labelHours.TabIndex = 7;
@@ -147,7 +154,7 @@
             this.labelMinutes.AutoSize = true;
             this.labelMinutes.BackColor = System.Drawing.Color.White;
             this.labelMinutes.Font = new System.Drawing.Font("MV Boli", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.labelMinutes.Location = new System.Drawing.Point(272, 227);
+            this.labelMinutes.Location = new System.Drawing.Point(12, 228);
             this.labelMinutes.Name = "labelMinutes";
             this.labelMinutes.Size = new System.Drawing.Size(62, 17);
             this.labelMinutes.TabIndex = 9;
@@ -155,10 +162,10 @@
             // 
             // inputMinutes
             // 
-            this.inputMinutes.Location = new System.Drawing.Point(324, 222);
-            this.inputMinutes.Mask = "00";
+            this.inputMinutes.InsertKeyMode = System.Windows.Forms.InsertKeyMode.Overwrite;
+            this.inputMinutes.Location = new System.Drawing.Point(296, 214);
+            this.inputMinutes.Mask = "##";
             this.inputMinutes.Name = "inputMinutes";
-            this.inputMinutes.PromptChar = '0';
             this.inputMinutes.Size = new System.Drawing.Size(19, 20);
             this.inputMinutes.TabIndex = 9;
             this.inputMinutes.ValidatingType = typeof(int);
@@ -168,7 +175,7 @@
             this.labelSeconds.AutoSize = true;
             this.labelSeconds.BackColor = System.Drawing.Color.White;
             this.labelSeconds.Font = new System.Drawing.Font("MV Boli", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.labelSeconds.Location = new System.Drawing.Point(279, 224);
+            this.labelSeconds.Location = new System.Drawing.Point(-2, 229);
             this.labelSeconds.Name = "labelSeconds";
             this.labelSeconds.Size = new System.Drawing.Size(61, 17);
             this.labelSeconds.TabIndex = 11;
@@ -176,20 +183,19 @@
             // 
             // inputSeconds
             // 
-            this.inputSeconds.Location = new System.Drawing.Point(321, 224);
-            this.inputSeconds.Mask = "00";
+            this.inputSeconds.InsertKeyMode = System.Windows.Forms.InsertKeyMode.Overwrite;
+            this.inputSeconds.Location = new System.Drawing.Point(271, 214);
+            this.inputSeconds.Mask = "##";
             this.inputSeconds.Name = "inputSeconds";
-            this.inputSeconds.PromptChar = '0';
             this.inputSeconds.Size = new System.Drawing.Size(19, 20);
             this.inputSeconds.TabIndex = 8;
-            this.inputSeconds.ValidatingType = typeof(int);
             // 
             // labelTimer
             // 
             this.labelTimer.AutoSize = true;
             this.labelTimer.BackColor = System.Drawing.Color.White;
             this.labelTimer.Font = new System.Drawing.Font("Segoe Print", 15.75F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Underline))), System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.labelTimer.Location = new System.Drawing.Point(263, 211);
+            this.labelTimer.Location = new System.Drawing.Point(136, 206);
             this.labelTimer.Name = "labelTimer";
             this.labelTimer.Size = new System.Drawing.Size(80, 37);
             this.labelTimer.TabIndex = 12;
@@ -204,18 +210,19 @@
             // 
             this.buttonNextTimer.BackColor = System.Drawing.Color.White;
             this.buttonNextTimer.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
-            this.buttonNextTimer.Location = new System.Drawing.Point(270, 222);
+            this.buttonNextTimer.Location = new System.Drawing.Point(52, 206);
             this.buttonNextTimer.Name = "buttonNextTimer";
             this.buttonNextTimer.Size = new System.Drawing.Size(70, 23);
             this.buttonNextTimer.TabIndex = 11;
             this.buttonNextTimer.Text = "Next";
             this.buttonNextTimer.UseVisualStyleBackColor = false;
+            this.buttonNextTimer.Click += new System.EventHandler(this.buttonNextTimer_Click);
             // 
             // buttonCancelTimer
             // 
             this.buttonCancelTimer.BackColor = System.Drawing.Color.White;
             this.buttonCancelTimer.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
-            this.buttonCancelTimer.Location = new System.Drawing.Point(266, 222);
+            this.buttonCancelTimer.Location = new System.Drawing.Point(26, 186);
             this.buttonCancelTimer.Name = "buttonCancelTimer";
             this.buttonCancelTimer.Size = new System.Drawing.Size(70, 23);
             this.buttonCancelTimer.TabIndex = 12;
@@ -223,12 +230,89 @@
             this.buttonCancelTimer.UseVisualStyleBackColor = false;
             this.buttonCancelTimer.Click += new System.EventHandler(this.buttonCancelTimer_Click);
             // 
+            // buttonConfirm
+            // 
+            this.buttonConfirm.BackColor = System.Drawing.Color.White;
+            this.buttonConfirm.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
+            this.buttonConfirm.Location = new System.Drawing.Point(259, 214);
+            this.buttonConfirm.Name = "buttonConfirm";
+            this.buttonConfirm.Size = new System.Drawing.Size(70, 23);
+            this.buttonConfirm.TabIndex = 21;
+            this.buttonConfirm.Text = "Confirm";
+            this.buttonConfirm.UseVisualStyleBackColor = false;
+            this.buttonConfirm.Click += new System.EventHandler(this.buttonConfirm_Click);
+            // 
+            // buttonBack
+            // 
+            this.buttonBack.BackColor = System.Drawing.Color.White;
+            this.buttonBack.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
+            this.buttonBack.Location = new System.Drawing.Point(65, 201);
+            this.buttonBack.Name = "buttonBack";
+            this.buttonBack.Size = new System.Drawing.Size(70, 23);
+            this.buttonBack.TabIndex = 22;
+            this.buttonBack.Text = "Back";
+            this.buttonBack.UseVisualStyleBackColor = false;
+            this.buttonBack.Click += new System.EventHandler(this.buttonBack_Click);
+            // 
+            // inputTitle
+            // 
+            this.inputTitle.Location = new System.Drawing.Point(84, 226);
+            this.inputTitle.Name = "inputTitle";
+            this.inputTitle.Size = new System.Drawing.Size(100, 20);
+            this.inputTitle.TabIndex = 23;
+            // 
+            // inputDescription
+            // 
+            this.inputDescription.Location = new System.Drawing.Point(26, 192);
+            this.inputDescription.Multiline = true;
+            this.inputDescription.Name = "inputDescription";
+            this.inputDescription.Size = new System.Drawing.Size(210, 54);
+            this.inputDescription.TabIndex = 24;
+            // 
+            // labelTitle
+            // 
+            this.labelTitle.AutoSize = true;
+            this.labelTitle.BackColor = System.Drawing.Color.White;
+            this.labelTitle.Font = new System.Drawing.Font("MV Boli", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.labelTitle.Location = new System.Drawing.Point(90, 192);
+            this.labelTitle.Name = "labelTitle";
+            this.labelTitle.Size = new System.Drawing.Size(40, 17);
+            this.labelTitle.TabIndex = 25;
+            this.labelTitle.Text = "Title";
+            // 
+            // labelDescription
+            // 
+            this.labelDescription.AutoSize = true;
+            this.labelDescription.BackColor = System.Drawing.Color.White;
+            this.labelDescription.Font = new System.Drawing.Font("MV Boli", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.labelDescription.Location = new System.Drawing.Point(80, 211);
+            this.labelDescription.Name = "labelDescription";
+            this.labelDescription.Size = new System.Drawing.Size(85, 17);
+            this.labelDescription.TabIndex = 26;
+            this.labelDescription.Text = "Description";
+            // 
+            // invalid
+            // 
+            this.invalid.AutoSize = true;
+            this.invalid.BackColor = System.Drawing.Color.White;
+            this.invalid.Location = new System.Drawing.Point(12, 232);
+            this.invalid.Name = "invalid";
+            this.invalid.Size = new System.Drawing.Size(0, 13);
+            this.invalid.TabIndex = 27;
+            // 
             // CustomReminder
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.Lime;
             this.ClientSize = new System.Drawing.Size(346, 246);
+            this.Controls.Add(this.invalid);
+            this.Controls.Add(this.labelDescription);
+            this.Controls.Add(this.labelTitle);
+            this.Controls.Add(this.inputDescription);
+            this.Controls.Add(this.inputTitle);
+            this.Controls.Add(this.buttonBack);
+            this.Controls.Add(this.buttonConfirm);
             this.Controls.Add(this.buttonCancelTimer);
             this.Controls.Add(this.buttonNextTimer);
             this.Controls.Add(this.labelTimer);
@@ -278,5 +362,12 @@
         public System.Windows.Forms.Timer UpdateTimer;
         private System.Windows.Forms.Button buttonNextTimer;
         private System.Windows.Forms.Button buttonCancelTimer;
+        private System.Windows.Forms.Button buttonConfirm;
+        private System.Windows.Forms.Button buttonBack;
+        private System.Windows.Forms.TextBox inputTitle;
+        private System.Windows.Forms.TextBox inputDescription;
+        private System.Windows.Forms.Label labelTitle;
+        private System.Windows.Forms.Label labelDescription;
+        private System.Windows.Forms.Label invalid;
     }
 }

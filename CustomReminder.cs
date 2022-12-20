@@ -7,21 +7,33 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
-using System.Globalization;
+//temp v
+using System.Diagnostics;
 
 namespace TaskPet
 {
-    public partial class CustomReminder : Form 
+    public partial class CustomReminder : Form
     {
         //variables
+        
 
+        public string PreMenu;
         public bool reminderSpecific;
         public bool reminderTimer;
-        public bool Daily;
-        public bool Weekly;
-        public bool Monthly;
-        public bool OneTime;
+        bool Daily;
+        bool Weekly;
+        bool Monthly;
+        bool OneTime;        
         public static bool ThinkBubbleClosed;
+        public static bool MadeTimer;
+        ReminderDatabase tempdb = new ReminderDatabase();
+
+
+
+        int Seconds = 0;
+        int Minutes = 0;
+        int Hours = 0;
+
 
         
 
@@ -32,12 +44,15 @@ namespace TaskPet
             
             reminderSpecific = isRS;
             reminderTimer = isRT;
+            UpdateTimer.Interval = 1000;
         }
 
         //NOTES: Center X = 143 
 
         private void CustomReminder_Load(object sender, EventArgs e)
         {
+            HideConfirmMenu();
+
             if (reminderSpecific)
             {
 
@@ -54,7 +69,10 @@ namespace TaskPet
         }
         private void UpdateTimer_Tick(object sender, EventArgs e)
         {
-
+            
+            
+            
+           
         }
 
         private void buttonCancelTimer_Click(object sender, EventArgs e)
@@ -81,9 +99,63 @@ namespace TaskPet
             HideReminderMenu();
             ShowTimerMenu();
         }
+
+        private void buttonNextTimer_Click(object sender, EventArgs e)
+        {
             
+            if(int.TryParse(inputSeconds.Text, out Seconds))
+            {
+                Seconds = Convert.ToInt32(inputSeconds.Text);
+            }
+            else
+            {
+                Seconds = 0;
+            }
+                       
+            if(int.TryParse(inputMinutes.Text, out Minutes))
+            {
+                Minutes = Convert.ToInt32(inputMinutes.Text);
+            }
+            else
+            {
+                Minutes = 0;
+            }
+
+            if(int.TryParse(inputHours.Text, out Hours))
+            {
+                Hours = Convert.ToInt32(inputHours.Text);
+            }
+
+            CheckIfValid("Timer");
+        }
+       
+            private void buttonBack_Click(object sender, EventArgs e)
+            {
+                HideConfirmMenu();
+                switch (PreMenu)
+                {
+                    case "timer":
+                        ShowTimerMenu();
+                        break;
+                }
+            }
+
+        private async void buttonConfirm_Click(object sender, EventArgs e)
+        {
+                                  
+            await tempdb.NewReminderTimer(inputTitle.Text, inputDescription.Text, Seconds.ToString());
+            Seconds = 0;
+            MadeTimer = true;
+            Close();
+            
+        }
+
+
+        //PreLoad and Functions
+
         private void LoadLayout()
         {
+            invalid.Location = new Point(160, 129);
             buttonSpecific.Location = new Point(143, 60);
             buttonTimer.Location = new Point(143, 120);
             labelTimer.Location = new Point(162, 31);
@@ -95,6 +167,12 @@ namespace TaskPet
             inputSeconds.Location = new Point(133, 109);
             buttonCancelTimer.Location = new Point(133, 146);
             buttonNextTimer.Location = new Point(213, 146);
+            labelTitle.Location = new Point(180, 14);
+            inputTitle.Location = new Point(150, 41);
+            labelDescription.Location = new Point(92, 60);
+            inputDescription.Location = new Point(94, 86);
+            buttonBack.Location = new Point(114, 148);
+            buttonConfirm.Location = new Point(220, 148);
         }
 
         private void HideTimerMenu()
@@ -132,7 +210,70 @@ namespace TaskPet
         {
             buttonSpecific.Show();
             buttonTimer.Show();
+        }        
+        
+        private void HideConfirmMenu()
+        {
+            labelTitle.Hide();
+            labelDescription.Hide();
+            inputTitle.Hide();
+            inputDescription.Hide();
+            buttonBack.Hide();
+            buttonConfirm.Hide();
         }
 
+        private void ShowConfirmMenu()
+        {
+            labelTitle.Show();
+            labelDescription.Show();
+            inputTitle.Show();
+            inputDescription.Show();
+            buttonBack.Show();
+            buttonConfirm.Show();
+        }
+
+        private void CheckIfValid(string WhatToCheck = "", bool isValid = true, string notValidState = "", string whatisInvalid = "")
+        {
+            if (WhatToCheck == "Timer")
+            {
+                if (Seconds > 59 || Minutes > 59 || Hours > 24 || Seconds < 0 || Minutes < 0 || Hours < 0)
+                {
+                    isValid = false;
+                    if (Seconds > 59 || Seconds < 0)
+                    {
+                        whatisInvalid = "Seconds";
+                    }
+                    else if (Minutes > 59 || Minutes < 0)
+                    {
+                        whatisInvalid = "Minutes";
+                    }
+                    else if (Hours > 24 || Hours < 0)
+                    {
+                        whatisInvalid = "Hours";
+                    }
+                }
+
+                if (isValid)
+                {
+                    PreMenu = "timer";                    
+                    reminderTimer = false;
+                    reminderSpecific = false;
+                    invalid.Hide();
+                    ShowConfirmMenu();
+                    HideTimerMenu();
+                }
+                else
+                {
+                    notValidState = whatisInvalid + " is invalid";
+                    invalid.Text = notValidState;
+                    invalid.Show();
+                }
+            }
+        }
+
+        
+
+        
+        
     }
 }

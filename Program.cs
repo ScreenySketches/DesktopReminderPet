@@ -14,9 +14,12 @@ namespace TaskPet
         [STAThread]
         static void Main()
         {
+             
                         Application.Run(new Form1());
 
 
         }
+
+        
     }
 }
