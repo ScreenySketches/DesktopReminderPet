@@ -229,7 +229,7 @@
             // 
             // notify
             // 
-            this.notify.BalloonTipIcon = System.Windows.Forms.ToolTipIcon.Info;
+            this.notify.Icon = ((System.Drawing.Icon)(resources.GetObject("notify.Icon")));
             this.notify.Text = "notification";
             this.notify.Visible = true;
             // 

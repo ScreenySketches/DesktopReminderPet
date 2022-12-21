@@ -278,8 +278,9 @@ namespace TaskPet
 
             if(!CheckTimeOnce && currentTime == anticipatedTime)
             {
+                Alert();
                 Debug.WriteLine("ALERT ALERT ALERT ALERT");
-                RemoveLatestTimer();
+                
 
                 
 
@@ -497,6 +498,14 @@ namespace TaskPet
             
         }
 
-        
+        private void Alert()
+        {
+            notify.BalloonTipTitle = "test";
+            notify.BalloonTipText = "testtext";
+            notify.Visible = true;
+            notify.ShowBalloonTip(5000);
+
+            RemoveLatestTimer();
+        }
     }
 }
