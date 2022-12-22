@@ -49,13 +49,16 @@ namespace TaskPet
         int walkDuration;
         int idleDuration;
         int turnDuration;
-        string currentTime;
-        string anticipatedTime;
         Random randomGenerator = new Random();
         Rectangle windowRectangle = new Rectangle();
         Rectangle desktopRectangle = new Rectangle();       
         private Point lastLocation;        
-        List<ReminderTimer> timerListSorted = new List<ReminderTimer>();
+        List<ReminderTimer> timerListInstance = new List<ReminderTimer>();
+        List<Reminder> activeReminders = new List<Reminder>();
+        
+
+        public static bool LRL_bool;
+        public static bool RLT_bool;
         
 
 
@@ -269,27 +272,44 @@ namespace TaskPet
             }
         }
 
-        bool CheckTimeOnce = false;
+        
 
         private void UpdateTimer_Tick(object sender, EventArgs e)
-        {     
-            currentTime = DateTime.Now.ToString("hh:mm:ss tt");
-            
+        {
 
-            if(!CheckTimeOnce && currentTime == anticipatedTime)
+            if (CustomReminder.MadeTimer)
             {
-                Alert();
-                Debug.WriteLine("ALERT ALERT ALERT ALERT");
-                
+                LoadReminderList();
 
-                
+                foreach(ReminderTimer tRt in timerListInstance)
+                {
+                    activeReminders.Add(new Reminder()
+                    {
+                        TITLE = tRt.Title,
+                        DESCRIPTION = tRt.Description,
+                        ANTICIPATEDTIME = DateTime.Now.AddSeconds(Convert.ToDouble(tRt.Seconds)).ToString("hh:mm:ss tt")
 
-                CheckTimeOnce = true;
+                    });
+                    Debug.WriteLine("foreach loop success " + tRt.Title + tRt.Description + tRt.Seconds);
+                }
+                CustomReminder.MadeTimer = false;
 
-            }else if(currentTime != anticipatedTime)
-            {
-                CheckTimeOnce = false; 
+                Debug.WriteLine("MadeTimer Finished");
+
+
             }
+
+            if (LRL_bool)
+            {
+                LoadReminderList();
+                LRL_bool = false;
+            }
+            if (RLT_bool)
+            {
+                RemoveLatestTimer();
+                RLT_bool = false;
+            }
+            
 
             if(CustomReminder.ThinkBubbleClosed && isThinking)
             {
@@ -300,11 +320,7 @@ namespace TaskPet
                 
             }
 
-            if (CustomReminder.MadeTimer)
-            {
-                CalculateAnticipatedTime("0");
-                CustomReminder.MadeTimer = false;
-            }
+            
 
             //     v Bounds Check v
 
@@ -447,18 +463,11 @@ namespace TaskPet
             
         }
 
-        private void CalculateAnticipatedTime(string topSeconds)
-        {
-            LoadReminderList();
-            topSeconds = timerListSorted[0].Seconds;
-            
-            anticipatedTime = DateTime.Now.AddSeconds(Convert.ToDouble(topSeconds)).ToString("hh:mm:ss tt");
-
-        }
+        
 
         private void LoadReminderList()
         {
-            List<ReminderTimer> timerList = new List<ReminderTimer>();
+            timerListInstance = new List<ReminderTimer>();
 
             if (!File.Exists(@"C:\TaskPet_Data\Timerdb.txt"))
            {
@@ -468,11 +477,11 @@ namespace TaskPet
             else if (File.Exists(@"C:\TaskPet_Data\Timerdb.txt"))
             {
                 string json = File.ReadAllText(@"C:\TaskPet_Data\Timerdb.txt");
-                timerList = JsonConvert.DeserializeObject<List<ReminderTimer>>(json);
+                timerListInstance = JsonConvert.DeserializeObject<List<ReminderTimer>>(json);
             }
 
-                
-            timerListSorted = timerList.OrderBy(timer => timer.Seconds).ToList();
+
+            
 
 
 
@@ -481,31 +490,40 @@ namespace TaskPet
 
         private void RemoveLatestTimer()
         {
-            timerListSorted.RemoveAt(0);
+            foreach(Reminder RM in activeReminders.ToList())
+            {
+                if (RM.isDone)
+                {
+                    foreach(ReminderTimer RT in timerListInstance.ToList())
+                    {
+                        if(RM.TITLE == RT.Title && RM.DESCRIPTION == RT.Description)
+                        {
+                            timerListInstance.Remove(RT);
+                        }
+                        
+                    }
+                    activeReminders.Remove(RM);
+                    
+                    RM.Dispose();
+                }
+            }
+            
 
-            string jsone = JsonConvert.SerializeObject(timerListSorted.ToArray(), Formatting.Indented);
+            string jsone = JsonConvert.SerializeObject(timerListInstance.ToArray(), Formatting.Indented);
             Directory.CreateDirectory(@"C:\TaskPet_Data");
             System.IO.File.WriteAllText(@"C:\TaskPet_Data\Timerdb.txt", jsone);
 
-            if(timerListSorted.Count == 0)
-            {
-                return;
-            }
-            else
-            {
-                CalculateAnticipatedTime("0");
-            }
-            
+                        
         }
 
-        private void Alert()
+        private void Form1_FormClosing(object sender, FormClosingEventArgs e)
         {
-            notify.BalloonTipTitle = "test";
-            notify.BalloonTipText = "testtext";
-            notify.Visible = true;
-            notify.ShowBalloonTip(5000);
+            timerListInstance.Clear();
 
-            RemoveLatestTimer();
+            string jsone = JsonConvert.SerializeObject(timerListInstance.ToArray(), Formatting.Indented);
+            Directory.CreateDirectory(@"C:\TaskPet_Data");
+            System.IO.File.WriteAllText(@"C:\TaskPet_Data\Timerdb.txt", jsone);
+            MessageBox.Show("Are you sure you wanna close? You'll lose any active timers.", "HEY!", MessageBoxButtons.OK, MessageBoxIcon.Warning);
         }
     }
 }

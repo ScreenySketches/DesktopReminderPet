@@ -30,3 +30,4 @@ C:\Users\lolma\Desktop\Content\Code\TaskPet\DesktopReminderPet\obj\Debug\TaskPet
 C:\Users\lolma\Desktop\Content\Code\TaskPet\DesktopReminderPet\obj\Debug\TaskPet.csproj.CopyComplete
 C:\Users\lolma\Desktop\Content\Code\TaskPet\DesktopReminderPet\obj\Debug\TaskPet.exe
 C:\Users\lolma\Desktop\Content\Code\TaskPet\DesktopReminderPet\obj\Debug\TaskPet.pdb
+C:\Users\lolma\Desktop\Content\Code\TaskPet\DesktopReminderPet\obj\Debug\TaskPet.Reminder.resources

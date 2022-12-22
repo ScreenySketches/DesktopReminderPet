@@ -50,7 +50,6 @@
             this.timerToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.exitToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.imageListThinking = new System.Windows.Forms.ImageList(this.components);
-            this.notify = new System.Windows.Forms.NotifyIcon(this.components);
             ((System.ComponentModel.ISupportInitialize)(this.pb)).BeginInit();
             this.contextMenu.SuspendLayout();
             this.SuspendLayout();
@@ -227,12 +226,6 @@
             this.imageListThinking.Images.SetKeyName(7, "think_8.png");
             this.imageListThinking.Images.SetKeyName(8, "think_9.png");
             // 
-            // notify
-            // 
-            this.notify.Icon = ((System.Drawing.Icon)(resources.GetObject("notify.Icon")));
-            this.notify.Text = "notification";
-            this.notify.Visible = true;
-            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -247,6 +240,7 @@
             this.Text = "Form1";
             this.TopMost = true;
             this.TransparencyKey = System.Drawing.Color.Lime;
+            this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.Form1_FormClosing);
             this.Load += new System.EventHandler(this.Form1_Load);
             ((System.ComponentModel.ISupportInitialize)(this.pb)).EndInit();
             this.contextMenu.ResumeLayout(false);
@@ -275,7 +269,6 @@
         private System.Windows.Forms.ToolStripMenuItem dailyToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem weeklyToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem monthlyToolStripMenuItem;
-        public System.Windows.Forms.NotifyIcon notify;
     }
 }
 
