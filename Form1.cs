@@ -123,7 +123,12 @@ namespace TaskPet
 
         private void Form1_Load(object sender, EventArgs e)
         {
-            
+            timerListInstance.Clear();
+
+            string jsone = JsonConvert.SerializeObject(timerListInstance.ToArray(), Formatting.Indented);
+            Directory.CreateDirectory(@"C:\TaskPet_Data");
+            System.IO.File.WriteAllText(@"C:\TaskPet_Data\Timerdb.txt", jsone);
+
         }
 
         public void timerAnimateSprite_Tick(object sender, EventArgs e)

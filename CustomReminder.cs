@@ -26,6 +26,7 @@ namespace TaskPet
         bool OneTime;        
         public static bool ThinkBubbleClosed;
         public static bool MadeTimer;
+        bool isValid = true;
         ReminderDatabase tempdb = new ReminderDatabase();
 
 
@@ -142,12 +143,10 @@ namespace TaskPet
 
         private async void buttonConfirm_Click(object sender, EventArgs e)
         {
-                                  
             await tempdb.NewReminderTimer(inputTitle.Text, inputDescription.Text, Seconds.ToString());
             Seconds = 0;
             MadeTimer = true;
             Close();
-            
         }
 
 
@@ -232,9 +231,9 @@ namespace TaskPet
             buttonConfirm.Show();
         }
 
-        private void CheckIfValid(string WhatToCheck = "", bool isValid = true, string notValidState = "", string whatisInvalid = "")
+        private void CheckIfValid(string WhatToCheck = "", string notValidState = "", string whatisInvalid = "")
         {
-            if (WhatToCheck == "Timer")
+            if(WhatToCheck == "Timer")
             {
                 if (Seconds > 59 || Minutes > 59 || Hours > 24 || Seconds < 0 || Minutes < 0 || Hours < 0)
                 {
@@ -252,24 +251,33 @@ namespace TaskPet
                         whatisInvalid = "Hours";
                     }
                 }
+                
+                
+            }
 
-                if (isValid)
-                {
-                    PreMenu = "timer";                    
-                    reminderTimer = false;
-                    reminderSpecific = false;
-                    invalid.Hide();
-                    ShowConfirmMenu();
-                    HideTimerMenu();
-                }
-                else
-                {
-                    notValidState = whatisInvalid + " is invalid";
-                    invalid.Text = notValidState;
-                    invalid.Show();
-                }
+            if (isValid)
+            {
+                PreMenu = "timer";
+                reminderTimer = false;
+                reminderSpecific = false;
+                invalid.Hide();
+                ShowConfirmMenu();
+                HideTimerMenu();
+            }
+            else
+            {
+                notValidState = whatisInvalid + " is invalid";
+                invalid.Text = notValidState;
+                invalid.Show();
             }
         }
+
+            
+
+            
+
+            
+        
 
         
 

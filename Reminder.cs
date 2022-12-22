@@ -9,6 +9,7 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.Globalization;
 using System.Diagnostics;
+using System.Media;
 
 namespace TaskPet
 {
@@ -26,20 +27,18 @@ namespace TaskPet
 
         
         
-
         
 
         public Reminder()
         {
             InitializeComponent();
-            
+
             
 
         }
 
         private void Reminder_Load(object sender, EventArgs e)
         {
-            
             
         }
 
@@ -61,10 +60,25 @@ namespace TaskPet
 
         private void Alert()
         {
+            SoundPlayer player = new SoundPlayer(Properties.Resources.notification);
             
+            player.Play();
 
-            notify.BalloonTipTitle = TITLE;
-            notify.BalloonTipText = DESCRIPTION;
+            if(TITLE == "")
+            {
+                TITLE = "Unspecified Timer";
+            }
+
+            if(DESCRIPTION == "")
+            {
+                notify.BalloonTipText = TITLE;
+            }
+            else
+            {
+                notify.BalloonTipTitle = TITLE;
+                notify.BalloonTipText = DESCRIPTION;
+            }
+            
             
             notify.Text = "Notification";
             
