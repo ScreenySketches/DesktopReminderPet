@@ -1,5 +1,5 @@
 
 .vs/TaskPet/v17/.suo
 *.cache
-.obj
-.bin
+obj
+bin
