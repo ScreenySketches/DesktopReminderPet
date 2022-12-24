@@ -28,7 +28,7 @@ namespace TaskPet
         
         
 
-        public async Task NewReminderTimer(string title, string description, string seconds)
+        public async Task NewReminderTimer(string title, string description, string seconds, string minutes, string hours)
         {
             
             if(rT == null)
@@ -41,7 +41,9 @@ namespace TaskPet
             {
                 Title = title,
                 Description = description,
-                Seconds = seconds
+                Seconds = seconds,
+                Minutes = minutes,
+                Hours = hours
             });
 
             string json = JsonConvert.SerializeObject(rT.ToArray(), Formatting.Indented);
@@ -60,6 +62,8 @@ namespace TaskPet
     {
         public string Title { get; set; }
         public string Description { get; set; }
+        public string Hours { get; set; }
+        public string Minutes { get; set; }
         public string Seconds { get; set; }
     }
 }

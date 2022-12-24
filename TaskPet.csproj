@@ -41,12 +41,14 @@
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <PlatformTarget>AnyCPU</PlatformTarget>
-    <DebugType>pdbonly</DebugType>
+    <DebugType>none</DebugType>
     <Optimize>true</Optimize>
     <OutputPath>bin\Release\</OutputPath>
     <DefineConstants>TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
+    <DocumentationFile>
+    </DocumentationFile>
   </PropertyGroup>
   <PropertyGroup>
     <ManifestCertificateThumbprint>99E300026D555DB6D0224B91C863F5E36D719982</ManifestCertificateThumbprint>
@@ -150,10 +152,52 @@
     </BootstrapperPackage>
   </ItemGroup>
   <ItemGroup>
-    <None Include="assets\sounds\notification.wav" />
+    <Content Include="assets\sprites\screeny\DragL\drag_l_0.png" />
+    <Content Include="assets\sprites\screeny\DragL\drag_l_1.png" />
+    <Content Include="assets\sprites\screeny\DragL\drag_l_2.png" />
+    <Content Include="assets\sprites\screeny\DragL\drag_l_3.png" />
+    <Content Include="assets\sprites\screeny\DragR\drag_r_0.png" />
+    <Content Include="assets\sprites\screeny\DragR\drag_r_1.png" />
+    <Content Include="assets\sprites\screeny\DragR\drag_r_2.png" />
+    <Content Include="assets\sprites\screeny\DragR\drag_r_3.png" />
+    <Content Include="assets\sprites\screeny\Falling\fall_l_0.png" />
+    <Content Include="assets\sprites\screeny\Falling\fall_l_1.png" />
+    <Content Include="assets\sprites\screeny\Falling\fall_l_2.png" />
+    <Content Include="assets\sprites\screeny\Falling\fall_l_3.png" />
+    <Content Include="assets\sprites\screeny\HIGHLIGHTS\H_IdleL.png" />
+    <Content Include="assets\sprites\screeny\HIGHLIGHTS\H_IdleR.png" />
+    <Content Include="assets\sprites\screeny\IdleL\idle_l_0.png" />
+    <Content Include="assets\sprites\screeny\IdleL\idle_l_1.png" />
+    <Content Include="assets\sprites\screeny\IdleL\idle_l_2.png" />
+    <Content Include="assets\sprites\screeny\IdleL\idle_l_3.png" />
+    <Content Include="assets\sprites\screeny\IdleR\idle_r_0.png" />
+    <Content Include="assets\sprites\screeny\IdleR\idle_r_1.png" />
+    <Content Include="assets\sprites\screeny\IdleR\idle_r_2.png" />
+    <Content Include="assets\sprites\screeny\IdleR\idle_r_3.png" />
+    <Content Include="assets\sprites\screeny\Think\think_1.png" />
+    <Content Include="assets\sprites\screeny\Think\think_2.png" />
+    <Content Include="assets\sprites\screeny\Think\think_3.png" />
+    <Content Include="assets\sprites\screeny\Think\think_4.png" />
+    <Content Include="assets\sprites\screeny\Think\think_5.png" />
+    <Content Include="assets\sprites\screeny\Think\think_6.png" />
+    <Content Include="assets\sprites\screeny\Think\think_7.png" />
+    <Content Include="assets\sprites\screeny\Think\think_8.png" />
+    <Content Include="assets\sprites\screeny\Think\think_9.png" />
+    <Content Include="assets\sprites\screeny\WalkL\walk_l_0.png" />
+    <Content Include="assets\sprites\screeny\WalkL\walk_l_1.png" />
+    <Content Include="assets\sprites\screeny\WalkL\walk_l_2.png" />
+    <Content Include="assets\sprites\screeny\WalkL\walk_l_3.png" />
+    <Content Include="assets\sprites\screeny\WalkR\walk_r_0.png" />
+    <Content Include="assets\sprites\screeny\WalkR\walk_r_1.png" />
+    <Content Include="assets\sprites\screeny\WalkR\walk_r_2.png" />
+    <Content Include="assets\sprites\screeny\WalkR\walk_r_3.png" />
+    <Content Include="assets\sounds\notification.wav">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
   </ItemGroup>
   <ItemGroup>
     <Content Include="TaskPet.ico" />
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

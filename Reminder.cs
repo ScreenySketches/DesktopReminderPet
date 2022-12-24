@@ -46,7 +46,7 @@ namespace TaskPet
         {
             currentTime = DateTime.Now.ToString("hh:mm:ss tt");
             Debug.WriteLine(currentTime);
-            
+            Debug.WriteLine(ANTICIPATEDTIME);
 
             if (currentTime == ANTICIPATEDTIME)
             {
@@ -60,7 +60,7 @@ namespace TaskPet
 
         private void Alert()
         {
-            SoundPlayer player = new SoundPlayer(Properties.Resources.notification);
+            SoundPlayer player = new SoundPlayer(@"./assets/sounds/notification.wav");
             
             player.Play();
 
@@ -71,7 +71,7 @@ namespace TaskPet
 
             if(DESCRIPTION == "")
             {
-                notify.BalloonTipText = TITLE;
+                notify.BalloonTipText = TITLE;               
             }
             else
             {

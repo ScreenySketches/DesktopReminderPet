@@ -10,8 +10,9 @@ using System.Windows.Forms;
 using System.Globalization;
 using System.Diagnostics;
 using System.IO;
-using Newtonsoft.Json;
+using Newtonsoft.Json;   
 using Newtonsoft.Json.Serialization;
+
 
 
 
@@ -56,10 +57,12 @@ namespace TaskPet
         List<ReminderTimer> timerListInstance = new List<ReminderTimer>();
         List<Reminder> activeReminders = new List<Reminder>();
         
-
+        
         public static bool LRL_bool;
         public static bool RLT_bool;
         
+
+
 
 
 
@@ -288,13 +291,15 @@ namespace TaskPet
 
                 foreach(ReminderTimer tRt in timerListInstance)
                 {
+                    
                     activeReminders.Add(new Reminder()
                     {
                         TITLE = tRt.Title,
                         DESCRIPTION = tRt.Description,
-                        ANTICIPATEDTIME = DateTime.Now.AddSeconds(Convert.ToDouble(tRt.Seconds)).ToString("hh:mm:ss tt")
-
+                        ANTICIPATEDTIME = anticipatedTime(tRt)
+                        
                     });
+                    Debug.WriteLine(anticipatedTime(tRt));
                     Debug.WriteLine("foreach loop success " + tRt.Title + tRt.Description + tRt.Seconds);
                 }
                 CustomReminder.MadeTimer = false;
@@ -504,6 +509,9 @@ namespace TaskPet
                         if(RM.TITLE == RT.Title && RM.DESCRIPTION == RT.Description)
                         {
                             timerListInstance.Remove(RT);
+                        }else if(RM.TITLE == "Unspecified Timer")
+                        {
+                            timerListInstance.Remove(RT);
                         }
                         
                     }
@@ -530,5 +538,24 @@ namespace TaskPet
             System.IO.File.WriteAllText(@"C:\TaskPet_Data\Timerdb.txt", jsone);
             MessageBox.Show("Are you sure you wanna close? You'll lose any active timers.", "HEY!", MessageBoxButtons.OK, MessageBoxIcon.Warning);
         }
+
+        private void pb_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        string anticipatedTime(ReminderTimer tRt)
+        {
+            Calendar myCal = CultureInfo.InvariantCulture.Calendar;
+            DateTime anticipatedDateTime = DateTime.Now;
+
+            anticipatedDateTime = myCal.AddHours(anticipatedDateTime, Convert.ToInt32(tRt.Hours));
+            anticipatedDateTime = myCal.AddMinutes(anticipatedDateTime, Convert.ToInt32(tRt.Minutes));
+            anticipatedDateTime = myCal.AddSeconds(anticipatedDateTime, Convert.ToInt32(tRt.Seconds));
+            return anticipatedDateTime.ToString("hh:mm:ss tt");
+
+        }
+
+        
     }
 }

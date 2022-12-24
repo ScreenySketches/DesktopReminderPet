@@ -143,7 +143,8 @@ namespace TaskPet
 
         private async void buttonConfirm_Click(object sender, EventArgs e)
         {
-            await tempdb.NewReminderTimer(inputTitle.Text, inputDescription.Text, Seconds.ToString());
+            
+            await tempdb.NewReminderTimer(inputTitle.Text, inputDescription.Text, Seconds.ToString(), Minutes.ToString(), Hours.ToString());
             Seconds = 0;
             MadeTimer = true;
             Close();
@@ -251,6 +252,10 @@ namespace TaskPet
                         whatisInvalid = "Hours";
                     }
                 }
+                else
+                {
+                    isValid = true;
+                }
                 
                 
             }
@@ -272,7 +277,7 @@ namespace TaskPet
             }
         }
 
-            
+         
 
             
 
