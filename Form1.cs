@@ -20,6 +20,8 @@ using Newtonsoft.Json.Serialization;
 
 
 
+
+
 namespace TaskPet
 {
     public partial class Form1 : Form
@@ -56,8 +58,10 @@ namespace TaskPet
         private Point lastLocation;        
         List<ReminderTimer> timerListInstance = new List<ReminderTimer>();
         List<Reminder> activeReminders = new List<Reminder>();
+
         
-        
+
+
         public static bool LRL_bool;
         public static bool RLT_bool;
         
@@ -455,10 +459,11 @@ namespace TaskPet
             isThinking = true;            
         }
 
+
         private void addReminderToolStripMenuItem_Click(object sender, EventArgs e)
         {
             InitiateThinkBubble();
-            CustomReminder customReminder = new CustomReminder(false, false);
+            CustomReminder customReminder = new CustomReminder(false, false, false, false, false, false);
             customReminder.Show();
             customReminder.Location = new Point(windowRectangle.X + 80, windowRectangle.Y - 250);
         }
@@ -466,14 +471,54 @@ namespace TaskPet
         private void timerToolStripMenuItem_Click(object sender, EventArgs e)
         {
             InitiateThinkBubble();
-            CustomReminder customReminder = new CustomReminder(false, true);
+            CustomReminder customReminder = new CustomReminder(false, true, false, false, false, false);
             customReminder.Show();
             customReminder.Location = new Point(windowRectangle.X + 80, windowRectangle.Y - 250);
 
             
         }
 
-        
+        private void specificDateToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            InitiateThinkBubble();
+            CustomReminder customReminder = new CustomReminder(true, false, false, false, false, false);
+            customReminder.Show();
+            customReminder.Location = new Point(windowRectangle.X + 80, windowRectangle.Y - 250);
+        }
+
+        private void oneTimeToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            InitiateThinkBubble();
+            CustomReminder customReminder = new CustomReminder(true, false, true, false, false, false);
+            customReminder.Show();
+            customReminder.Location = new Point(windowRectangle.X + 80, windowRectangle.Y - 250);
+        }
+
+        private void dailyToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            InitiateThinkBubble();
+            CustomReminder customReminder = new CustomReminder(true, false, false, true, false, false);
+            customReminder.Show();
+            customReminder.Location = new Point(windowRectangle.X + 80, windowRectangle.Y - 250);
+        }
+
+        private void weeklyToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            InitiateThinkBubble();
+            CustomReminder customReminder = new CustomReminder(true, false, false, false, true, false);
+            customReminder.Show();
+            customReminder.Location = new Point(windowRectangle.X + 80, windowRectangle.Y - 250);
+        }
+
+        private void monthlyToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            InitiateThinkBubble();
+            CustomReminder customReminder = new CustomReminder(true, false, false, false, false, true);
+            customReminder.Show();
+            customReminder.Location = new Point(windowRectangle.X + 80, windowRectangle.Y - 250);
+        }
+
+
 
         private void LoadReminderList()
         {
@@ -531,12 +576,22 @@ namespace TaskPet
 
         private void Form1_FormClosing(object sender, FormClosingEventArgs e)
         {
-            timerListInstance.Clear();
 
-            string jsone = JsonConvert.SerializeObject(timerListInstance.ToArray(), Formatting.Indented);
-            Directory.CreateDirectory(@"C:\TaskPet_Data");
-            System.IO.File.WriteAllText(@"C:\TaskPet_Data\Timerdb.txt", jsone);
-            MessageBox.Show("Are you sure you wanna close? You'll lose any active timers.", "HEY!", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+            DialogResult d = MessageBox.Show("Are you sure you wanna close? You'll lose any active timers.", "HEY!", MessageBoxButtons.YesNo, MessageBoxIcon.Warning);
+            if (d == DialogResult.Yes)
+            {
+                timerListInstance.Clear();
+
+                string jsone = JsonConvert.SerializeObject(timerListInstance.ToArray(), Formatting.Indented);
+                Directory.CreateDirectory(@"C:\TaskPet_Data");
+                System.IO.File.WriteAllText(@"C:\TaskPet_Data\Timerdb.txt", jsone);
+            }
+            else
+            {
+                e.Cancel = true;
+            }
+            
+           
         }
 
         private void pb_Click(object sender, EventArgs e)

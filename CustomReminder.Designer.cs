@@ -53,6 +53,12 @@
             this.labelTitle = new System.Windows.Forms.Label();
             this.labelDescription = new System.Windows.Forms.Label();
             this.invalid = new System.Windows.Forms.Label();
+            this.buttonOneTime = new System.Windows.Forms.Button();
+            this.buttonDaily = new System.Windows.Forms.Button();
+            this.buttonWeekly = new System.Windows.Forms.Button();
+            this.buttonMonthly = new System.Windows.Forms.Button();
+            this.buttonBackArrow = new System.Windows.Forms.Button();
+            this.labelSpecificType = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.reminderpb)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.thoughtdot_1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
@@ -91,18 +97,19 @@
             // 
             this.buttonSpecific.BackColor = System.Drawing.Color.White;
             this.buttonSpecific.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
-            this.buttonSpecific.Location = new System.Drawing.Point(95, 225);
+            this.buttonSpecific.Location = new System.Drawing.Point(213, 209);
             this.buttonSpecific.Name = "buttonSpecific";
             this.buttonSpecific.Size = new System.Drawing.Size(121, 23);
             this.buttonSpecific.TabIndex = 3;
             this.buttonSpecific.Text = "Specific Date or Time";
             this.buttonSpecific.UseVisualStyleBackColor = false;
+            this.buttonSpecific.Click += new System.EventHandler(this.buttonSpecific_Click);
             // 
             // buttonTimer
             // 
             this.buttonTimer.BackColor = System.Drawing.Color.White;
             this.buttonTimer.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
-            this.buttonTimer.Location = new System.Drawing.Point(1, 201);
+            this.buttonTimer.Location = new System.Drawing.Point(1, 219);
             this.buttonTimer.Name = "buttonTimer";
             this.buttonTimer.Size = new System.Drawing.Size(121, 23);
             this.buttonTimer.TabIndex = 4;
@@ -195,7 +202,7 @@
             this.labelTimer.AutoSize = true;
             this.labelTimer.BackColor = System.Drawing.Color.White;
             this.labelTimer.Font = new System.Drawing.Font("Segoe Print", 15.75F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Underline))), System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.labelTimer.Location = new System.Drawing.Point(136, 206);
+            this.labelTimer.Location = new System.Drawing.Point(76, 199);
             this.labelTimer.Name = "labelTimer";
             this.labelTimer.Size = new System.Drawing.Size(80, 37);
             this.labelTimer.TabIndex = 12;
@@ -210,7 +217,7 @@
             // 
             this.buttonNextTimer.BackColor = System.Drawing.Color.White;
             this.buttonNextTimer.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
-            this.buttonNextTimer.Location = new System.Drawing.Point(52, 206);
+            this.buttonNextTimer.Location = new System.Drawing.Point(4, 225);
             this.buttonNextTimer.Name = "buttonNextTimer";
             this.buttonNextTimer.Size = new System.Drawing.Size(70, 23);
             this.buttonNextTimer.TabIndex = 11;
@@ -222,7 +229,7 @@
             // 
             this.buttonCancelTimer.BackColor = System.Drawing.Color.White;
             this.buttonCancelTimer.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
-            this.buttonCancelTimer.Location = new System.Drawing.Point(26, 186);
+            this.buttonCancelTimer.Location = new System.Drawing.Point(1, 219);
             this.buttonCancelTimer.Name = "buttonCancelTimer";
             this.buttonCancelTimer.Size = new System.Drawing.Size(70, 23);
             this.buttonCancelTimer.TabIndex = 12;
@@ -234,7 +241,7 @@
             // 
             this.buttonConfirm.BackColor = System.Drawing.Color.White;
             this.buttonConfirm.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
-            this.buttonConfirm.Location = new System.Drawing.Point(259, 214);
+            this.buttonConfirm.Location = new System.Drawing.Point(62, 219);
             this.buttonConfirm.Name = "buttonConfirm";
             this.buttonConfirm.Size = new System.Drawing.Size(70, 23);
             this.buttonConfirm.TabIndex = 21;
@@ -256,14 +263,14 @@
             // 
             // inputTitle
             // 
-            this.inputTitle.Location = new System.Drawing.Point(84, 226);
+            this.inputTitle.Location = new System.Drawing.Point(30, 229);
             this.inputTitle.Name = "inputTitle";
             this.inputTitle.Size = new System.Drawing.Size(100, 20);
             this.inputTitle.TabIndex = 23;
             // 
             // inputDescription
             // 
-            this.inputDescription.Location = new System.Drawing.Point(26, 192);
+            this.inputDescription.Location = new System.Drawing.Point(1, 195);
             this.inputDescription.Multiline = true;
             this.inputDescription.Name = "inputDescription";
             this.inputDescription.Size = new System.Drawing.Size(210, 54);
@@ -274,7 +281,7 @@
             this.labelTitle.AutoSize = true;
             this.labelTitle.BackColor = System.Drawing.Color.White;
             this.labelTitle.Font = new System.Drawing.Font("MV Boli", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.labelTitle.Location = new System.Drawing.Point(90, 192);
+            this.labelTitle.Location = new System.Drawing.Point(171, 211);
             this.labelTitle.Name = "labelTitle";
             this.labelTitle.Size = new System.Drawing.Size(40, 17);
             this.labelTitle.TabIndex = 25;
@@ -285,7 +292,7 @@
             this.labelDescription.AutoSize = true;
             this.labelDescription.BackColor = System.Drawing.Color.White;
             this.labelDescription.Font = new System.Drawing.Font("MV Boli", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.labelDescription.Location = new System.Drawing.Point(80, 211);
+            this.labelDescription.Location = new System.Drawing.Point(47, 199);
             this.labelDescription.Name = "labelDescription";
             this.labelDescription.Size = new System.Drawing.Size(85, 17);
             this.labelDescription.TabIndex = 26;
@@ -300,12 +307,91 @@
             this.invalid.Size = new System.Drawing.Size(0, 13);
             this.invalid.TabIndex = 27;
             // 
+            // buttonOneTime
+            // 
+            this.buttonOneTime.BackColor = System.Drawing.Color.White;
+            this.buttonOneTime.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
+            this.buttonOneTime.Location = new System.Drawing.Point(197, 209);
+            this.buttonOneTime.Name = "buttonOneTime";
+            this.buttonOneTime.Size = new System.Drawing.Size(143, 23);
+            this.buttonOneTime.TabIndex = 28;
+            this.buttonOneTime.Text = "One-Time";
+            this.buttonOneTime.UseVisualStyleBackColor = false;
+            this.buttonOneTime.Click += new System.EventHandler(this.buttonOneTime_Click);
+            // 
+            // buttonDaily
+            // 
+            this.buttonDaily.BackColor = System.Drawing.Color.White;
+            this.buttonDaily.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
+            this.buttonDaily.Location = new System.Drawing.Point(5, 223);
+            this.buttonDaily.Name = "buttonDaily";
+            this.buttonDaily.Size = new System.Drawing.Size(144, 23);
+            this.buttonDaily.TabIndex = 29;
+            this.buttonDaily.Text = "Daily";
+            this.buttonDaily.UseVisualStyleBackColor = false;
+            this.buttonDaily.Click += new System.EventHandler(this.buttonDaily_Click);
+            // 
+            // buttonWeekly
+            // 
+            this.buttonWeekly.BackColor = System.Drawing.Color.White;
+            this.buttonWeekly.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
+            this.buttonWeekly.Location = new System.Drawing.Point(1, 173);
+            this.buttonWeekly.Name = "buttonWeekly";
+            this.buttonWeekly.Size = new System.Drawing.Size(144, 23);
+            this.buttonWeekly.TabIndex = 30;
+            this.buttonWeekly.Text = "Weekly";
+            this.buttonWeekly.UseVisualStyleBackColor = false;
+            this.buttonWeekly.Click += new System.EventHandler(this.buttonWeekly_Click);
+            // 
+            // buttonMonthly
+            // 
+            this.buttonMonthly.BackColor = System.Drawing.Color.White;
+            this.buttonMonthly.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
+            this.buttonMonthly.Location = new System.Drawing.Point(162, 223);
+            this.buttonMonthly.Name = "buttonMonthly";
+            this.buttonMonthly.Size = new System.Drawing.Size(144, 23);
+            this.buttonMonthly.TabIndex = 31;
+            this.buttonMonthly.Text = "Monthly";
+            this.buttonMonthly.UseVisualStyleBackColor = false;
+            this.buttonMonthly.Click += new System.EventHandler(this.buttonMonthly_Click);
+            // 
+            // buttonBackArrow
+            // 
+            this.buttonBackArrow.BackColor = System.Drawing.Color.White;
+            this.buttonBackArrow.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
+            this.buttonBackArrow.Location = new System.Drawing.Point(1, -1);
+            this.buttonBackArrow.Name = "buttonBackArrow";
+            this.buttonBackArrow.Size = new System.Drawing.Size(17, 120);
+            this.buttonBackArrow.TabIndex = 32;
+            this.buttonBackArrow.Text = "<";
+            this.buttonBackArrow.UseVisualStyleBackColor = false;
+            this.buttonBackArrow.Click += new System.EventHandler(this.buttonBackArrow_Click);
+            // 
+            // labelSpecificType
+            // 
+            this.labelSpecificType.Anchor = System.Windows.Forms.AnchorStyles.Top;
+            this.labelSpecificType.AutoSize = true;
+            this.labelSpecificType.BackColor = System.Drawing.Color.White;
+            this.labelSpecificType.Font = new System.Drawing.Font("MV Boli", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.labelSpecificType.Location = new System.Drawing.Point(179, 33);
+            this.labelSpecificType.Name = "labelSpecificType";
+            this.labelSpecificType.Size = new System.Drawing.Size(32, 17);
+            this.labelSpecificType.TabIndex = 33;
+            this.labelSpecificType.Text = "null";
+            this.labelSpecificType.TextAlign = System.Drawing.ContentAlignment.TopCenter;
+            // 
             // CustomReminder
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.Lime;
             this.ClientSize = new System.Drawing.Size(346, 246);
+            this.Controls.Add(this.labelSpecificType);
+            this.Controls.Add(this.buttonBackArrow);
+            this.Controls.Add(this.buttonMonthly);
+            this.Controls.Add(this.buttonWeekly);
+            this.Controls.Add(this.buttonDaily);
+            this.Controls.Add(this.buttonOneTime);
             this.Controls.Add(this.invalid);
             this.Controls.Add(this.labelDescription);
             this.Controls.Add(this.labelTitle);
@@ -369,5 +455,11 @@
         private System.Windows.Forms.Label labelTitle;
         private System.Windows.Forms.Label labelDescription;
         private System.Windows.Forms.Label invalid;
+        private System.Windows.Forms.Button buttonOneTime;
+        private System.Windows.Forms.Button buttonDaily;
+        private System.Windows.Forms.Button buttonWeekly;
+        private System.Windows.Forms.Button buttonMonthly;
+        private System.Windows.Forms.Button buttonBackArrow;
+        private System.Windows.Forms.Label labelSpecificType;
     }
 }

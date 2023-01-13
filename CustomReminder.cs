@@ -27,6 +27,8 @@ namespace TaskPet
         public static bool ThinkBubbleClosed;
         public static bool MadeTimer;
         bool isValid = true;
+        string SpecificMode;
+        bool executeOnce;
         ReminderDatabase tempdb = new ReminderDatabase();
 
 
@@ -38,14 +40,19 @@ namespace TaskPet
 
         
 
-        public CustomReminder(bool isRS, bool isRT)
+        public CustomReminder(bool isRS, bool isRT, bool onetime, bool daily, bool weekly, bool monthly)
         {
             InitializeComponent();
             LoadLayout();
             
             reminderSpecific = isRS;
             reminderTimer = isRT;
-            UpdateTimer.Interval = 1000;
+            OneTime = onetime;
+            Daily = daily;
+            Weekly = weekly;
+            Monthly = monthly;
+            executeOnce = true;
+            UpdateTimer.Interval = 100;
         }
 
         //NOTES: Center X = 143 
@@ -53,26 +60,65 @@ namespace TaskPet
         private void CustomReminder_Load(object sender, EventArgs e)
         {
             HideConfirmMenu();
+            HideSpecificTypeMenu();
 
             if (reminderSpecific)
             {
-
-            }else if (reminderTimer)
+                HideTimerMenu();
+                HideReminderMenu();
+                ShowSpecificMenu();
+            }
+            else if (reminderTimer)
             {
                 HideReminderMenu();
-                ShowTimerMenu();                              
+                ShowTimerMenu();    
+                HideSpecificMenu(false);
             }
             else
             {
                 HideTimerMenu();
-                ShowReminderMenu();               
+                ShowReminderMenu();   
+                HideSpecificMenu(false);
             }
         }
         private void UpdateTimer_Tick(object sender, EventArgs e)
         {
             
             
-            
+            if(OneTime || Daily || Weekly || Monthly)
+            {                   
+                if (executeOnce)
+                {
+                    if (OneTime)
+                    {
+                        SpecificMode = "onetime";
+                        labelSpecificType.Text = "One-Time Reminder";
+                        //labelSpecificType.Location = new Point(135, labelSpecificType.Location.Y);
+                    }
+                    if (Daily)
+                    {
+                        SpecificMode = "daily";
+                        labelSpecificType.Text = "Daily Reminder";
+                       // labelSpecificType.Location = new Point(155, labelSpecificType.Location.Y);
+                    }
+                    if (Weekly)
+                    {
+                        SpecificMode = "weekly";
+                        labelSpecificType.Text = "Weekly Reminder";
+                        //labelSpecificType.Location = new Point(150, labelSpecificType.Location.Y);
+                    }
+                    if (Monthly)
+                    {
+                        SpecificMode = "monthly";
+                        labelSpecificType.Text = "Monthly Reminder";
+                        //labelSpecificType.Location = new Point(150, labelSpecificType.Location.Y);
+                    }
+
+                    ShowSpecificTypeMenu();
+                    HideSpecificMenu(true);
+                    executeOnce = false;
+                }
+            } 
            
         }
 
@@ -99,6 +145,13 @@ namespace TaskPet
             reminderTimer = true;
             HideReminderMenu();
             ShowTimerMenu();
+        }
+
+        private void buttonSpecific_Click(object sender, EventArgs e)
+        {
+            reminderSpecific = true;
+            HideReminderMenu();
+            ShowSpecificMenu();
         }
 
         private void buttonNextTimer_Click(object sender, EventArgs e)
@@ -130,16 +183,29 @@ namespace TaskPet
             CheckIfValid("Timer");
         }
        
-            private void buttonBack_Click(object sender, EventArgs e)
+        private void buttonBack_Click(object sender, EventArgs e)
+        {
+            HideConfirmMenu();
+            switch (PreMenu)
             {
-                HideConfirmMenu();
-                switch (PreMenu)
-                {
-                    case "timer":
-                        ShowTimerMenu();
-                        break;
-                }
+                case "timer":
+                    ShowTimerMenu();
+                    break;
             }
+        }
+
+        private void buttonBackArrow_Click(object sender, EventArgs e)
+        {
+            HideSpecificMenu(false);
+            HideSpecificTypeMenu();
+            ShowReminderMenu();
+            OneTime = false;
+            Daily = false;
+            Weekly = false;
+            Monthly = false;
+        }
+
+
 
         private async void buttonConfirm_Click(object sender, EventArgs e)
         {
@@ -155,6 +221,12 @@ namespace TaskPet
 
         private void LoadLayout()
         {
+            labelSpecificType.Location = new Point(140, 28);
+            buttonBackArrow.Location = new Point(107, 38);
+            buttonOneTime.Location = new Point(131, 38);
+            buttonDaily.Location = new Point(131, 77);
+            buttonWeekly.Location = new Point(131, 106);
+            buttonMonthly.Location = new Point(131, 135);
             invalid.Location = new Point(160, 129);
             buttonSpecific.Location = new Point(143, 60);
             buttonTimer.Location = new Point(143, 120);
@@ -173,6 +245,40 @@ namespace TaskPet
             inputDescription.Location = new Point(94, 86);
             buttonBack.Location = new Point(114, 148);
             buttonConfirm.Location = new Point(220, 148);
+        }
+
+        private void HideSpecificTypeMenu()
+        {
+            buttonBackArrow.Text = "<";
+            labelSpecificType.Hide();
+        }
+
+        private void ShowSpecificTypeMenu()
+        {
+            buttonBackArrow.Text = "<<<";
+            labelSpecificType.Show();
+        }
+
+        private void HideSpecificMenu(bool keepArrow)
+        {
+            buttonOneTime.Hide();
+            buttonDaily.Hide();
+            buttonWeekly.Hide();
+            buttonMonthly.Hide();
+            if (!keepArrow)
+            {
+                buttonBackArrow.Hide();
+            }
+            
+        }
+
+        private void ShowSpecificMenu()
+        {
+            buttonOneTime.Show();
+            buttonDaily.Show();
+            buttonWeekly.Show();
+            buttonMonthly.Show();
+            buttonBackArrow.Show();
         }
 
         private void HideTimerMenu()
@@ -232,6 +338,8 @@ namespace TaskPet
             buttonConfirm.Show();
         }
 
+        
+
         private void CheckIfValid(string WhatToCheck = "", string notValidState = "", string whatisInvalid = "")
         {
             if(WhatToCheck == "Timer")
@@ -247,7 +355,7 @@ namespace TaskPet
                     {
                         whatisInvalid = "Minutes";
                     }
-                    else if (Hours > 24 || Hours < 0)
+                    else if (Hours > 25 || Hours < 0)
                     {
                         whatisInvalid = "Hours";
                     }
@@ -277,16 +385,30 @@ namespace TaskPet
             }
         }
 
-         
+        private void buttonOneTime_Click(object sender, EventArgs e)
+        {
+            OneTime = true;
+            executeOnce = true;
+        }
 
-            
+        private void buttonDaily_Click(object sender, EventArgs e)
+        {
+            Daily = true;
+            executeOnce = true;
+        }
 
-            
-        
+        private void buttonWeekly_Click(object sender, EventArgs e)
+        {
+            Weekly = true;
+            executeOnce = true;
+        }
 
-        
+        private void buttonMonthly_Click(object sender, EventArgs e)
+        {
+            Monthly = true;
+            executeOnce = true;
+        }
 
-        
-        
+
     }
 }

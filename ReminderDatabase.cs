@@ -54,6 +54,8 @@ namespace TaskPet
             
         }
 
+        //public async Task NewSpecificTimer()
+
     }
 
     //---------------------------------------------------------------------//
@@ -66,4 +68,9 @@ namespace TaskPet
         public string Minutes { get; set; }
         public string Seconds { get; set; }
     }
+
+    /*public class ReminderSpecific
+    {
+        public string
+    }*/
 }

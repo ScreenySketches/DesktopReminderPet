@@ -25,6 +25,8 @@ namespace TaskPet
 
         public string currentTime;
 
+        public bool executeONCE = true;
+
         
         
         
@@ -42,14 +44,15 @@ namespace TaskPet
             
         }
 
-        private void UpdateTimer_Tick(object sender, EventArgs e)
+        public void UpdateTimer_Tick(object sender, EventArgs e)
         {
             currentTime = DateTime.Now.ToString("hh:mm:ss tt");
             Debug.WriteLine(currentTime);
             Debug.WriteLine(ANTICIPATEDTIME);
 
-            if (currentTime == ANTICIPATEDTIME)
+            if (currentTime == ANTICIPATEDTIME && executeONCE == true)
             {
+                executeONCE = false;
                 Alert();
                 Debug.WriteLine("ALERT ALERT ALERT ALERT");                
             }
@@ -85,6 +88,7 @@ namespace TaskPet
             notify.Visible = true;
             notify.ShowBalloonTip(5000);    
             notify.Dispose();
+            MessageBox.Show(DESCRIPTION, TITLE);
             isDone = true;
             Form1.RLT_bool = true;
             
