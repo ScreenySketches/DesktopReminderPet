@@ -67,24 +67,21 @@ namespace TaskPet
             
             player.Play();
 
-            if(TITLE == "")
-            {
+            if (string.IsNullOrEmpty(TITLE))
                 TITLE = "Unspecified Timer";
-            }
 
-            if(DESCRIPTION == "")
+            if (string.IsNullOrEmpty(DESCRIPTION))
             {
-                notify.BalloonTipText = TITLE;               
+                notify.BalloonTipText = TITLE;
             }
             else
             {
                 notify.BalloonTipTitle = TITLE;
                 notify.BalloonTipText = DESCRIPTION;
             }
-            
-            
-            notify.Text = "Notification";
-            
+
+
+            notify.Text = "Notification";           
             notify.Visible = true;
             notify.ShowBalloonTip(5000);    
             notify.Dispose();

@@ -52,7 +52,7 @@ namespace TaskPet
         int walkDuration;
         int idleDuration;
         int turnDuration;
-        Random randomGenerator = new Random();
+        private Random _randomGenerator = new Random();
         Rectangle windowRectangle = new Rectangle();
         Rectangle desktopRectangle = new Rectangle();       
         private Point lastLocation;        
@@ -77,20 +77,17 @@ namespace TaskPet
 
         public async void TurnDelay()
         {
-            
-            for(int i = 0; i < 3; i++)
+            while (true)
             {
-                while(!isBeingDragged)
+                while (!isBeingDragged)
                 {
-                    turnDuration = randomGenerator.Next(3000, 13000);
+                    turnDuration = _randomGenerator.Next(3000, 13000);
                     isFacingLeft = false;
                     await Task.Delay(turnDuration);
                     isFacingLeft = true;
-                    turnDuration = randomGenerator.Next(3000, 18000);
+                    turnDuration = _randomGenerator.Next(3000, 18000);
                     await Task.Delay(turnDuration);
-                    
                 }
-                
             }
         }
 
@@ -101,12 +98,11 @@ namespace TaskPet
 
         public async void MovementDelay()
         {
-            for(int i = 0; i < 3; i++)
+            while (true)
             {
-                
-                idleDuration = randomGenerator.Next(2000, 10000);
-                walkDuration = randomGenerator.Next(2000, 4000);
-                movementSpeed = randomGenerator.Next(9, 15);
+                idleDuration = _randomGenerator.Next(2000, 10000);
+                walkDuration = _randomGenerator.Next(2000, 4000);
+                movementSpeed = _randomGenerator.Next(9, 15);
 
                 isIdle = true;
                 isWalking = false;
@@ -114,8 +110,7 @@ namespace TaskPet
                 isIdle = false;
                 isWalking = true;
                 await Task.Delay(walkDuration);
-                i = 0;
-            }           
+            }
         }
 
         public void RectInitialize()
