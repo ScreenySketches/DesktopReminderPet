@@ -1,12 +1,7 @@
-﻿using System;
+﻿using Newtonsoft.Json;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Diagnostics;
-using Newtonsoft.Json.Serialization;
-using Newtonsoft.Json;
 using System.IO;
+using System.Threading.Tasks;
 
 
 namespace TaskPet
@@ -15,8 +10,8 @@ namespace TaskPet
     {
 
         public List<ReminderTimer> rT = new List<ReminderTimer>();
-        
-        
+
+
         public ReminderDatabase()
         {
             if (File.Exists(@"C:\TaskPet_Data\Timerdb.txt"))
@@ -25,17 +20,17 @@ namespace TaskPet
                 rT = JsonConvert.DeserializeObject<List<ReminderTimer>>(json);
             }
         }
-        
-        
+
+
 
         public async Task NewReminderTimer(string title, string description, string seconds, string minutes, string hours)
         {
-            
-            if(rT == null)
+
+            if (rT == null)
             {
                 rT = new List<ReminderTimer>();
             }
-            
+
 
             rT.Add(new ReminderTimer()
             {
@@ -51,7 +46,7 @@ namespace TaskPet
             System.IO.File.WriteAllText(@"C:\TaskPet_Data\Timerdb.txt", json);
 
             await Task.Delay(10);
-            
+
         }
 
         //public async Task NewSpecificTimer()

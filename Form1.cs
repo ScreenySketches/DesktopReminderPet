@@ -1,17 +1,13 @@
-﻿using System;
+﻿using Newtonsoft.Json;
+using System;
 using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
+using System.Diagnostics;
 using System.Drawing;
+using System.Globalization;
+using System.IO;
 using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
-using System.Globalization;
-using System.Diagnostics;
-using System.IO;
-using Newtonsoft.Json;   
-using Newtonsoft.Json.Serialization;
 
 
 
@@ -32,13 +28,13 @@ namespace TaskPet
             MovementDelay();
             TurnDelay();
             RectInitialize();
-            
-            
-            
+
+
+
         }
 
         //variables
-        
+
         int imageNumb = 0;
         public bool isIdle = true;
         public bool isWalking = false;
@@ -54,17 +50,17 @@ namespace TaskPet
         int turnDuration;
         private Random _randomGenerator = new Random();
         Rectangle windowRectangle = new Rectangle();
-        Rectangle desktopRectangle = new Rectangle();       
-        private Point lastLocation;        
+        Rectangle desktopRectangle = new Rectangle();
+        private Point lastLocation;
         List<ReminderTimer> timerListInstance = new List<ReminderTimer>();
         List<Reminder> activeReminders = new List<Reminder>();
 
-        
+
 
 
         public static bool LRL_bool;
         public static bool RLT_bool;
-        
+
 
 
 
@@ -92,7 +88,7 @@ namespace TaskPet
         }
 
 
-        
+
 
 
 
@@ -118,9 +114,9 @@ namespace TaskPet
             windowRectangle.Size = Size;
             windowRectangle.Location = Location;
             desktopRectangle = Screen.GetBounds(windowRectangle);
-            
+
         }
-        
+
 
 
         private void Form1_Load(object sender, EventArgs e)
@@ -262,7 +258,7 @@ namespace TaskPet
 
                 }
             }
-            else if(isThinking && Override)
+            else if (isThinking && Override)
             {
                 timerAnimateSprite.Interval = 100;
 
@@ -279,7 +275,7 @@ namespace TaskPet
             }
         }
 
-        
+
 
         private void UpdateTimer_Tick(object sender, EventArgs e)
         {
@@ -288,15 +284,15 @@ namespace TaskPet
             {
                 LoadReminderList();
 
-                foreach(ReminderTimer tRt in timerListInstance)
+                foreach (ReminderTimer tRt in timerListInstance)
                 {
-                    
+
                     activeReminders.Add(new Reminder()
                     {
                         TITLE = tRt.Title,
                         DESCRIPTION = tRt.Description,
                         ANTICIPATEDTIME = anticipatedTime(tRt)
-                        
+
                     });
                     Debug.WriteLine(anticipatedTime(tRt));
                     Debug.WriteLine("foreach loop success " + tRt.Title + tRt.Description + tRt.Seconds);
@@ -318,18 +314,18 @@ namespace TaskPet
                 RemoveLatestTimer();
                 RLT_bool = false;
             }
-            
 
-            if(CustomReminder.ThinkBubbleClosed && isThinking)
+
+            if (CustomReminder.ThinkBubbleClosed && isThinking)
             {
                 isThinking = false;
                 Override = false;
                 imageNumb = 0;
                 CustomReminder.ThinkBubbleClosed = false;
-                
+
             }
 
-            
+
 
             //     v Bounds Check v
 
@@ -398,20 +394,21 @@ namespace TaskPet
                     isFalling = false;
                     Force = 0;
                 }
-            }else if(isBeingDragged && Override)
+            }
+            else if (isBeingDragged && Override)
             {
                 isBeingDragged = false;
             }
-            
-        }       
+
+        }
         private void pb_Hover(object sender, EventArgs e)
         {
-             
+
         }
 
         private void pb_MouseLeave(object sender, EventArgs e)
         {
-            
+
         }
 
         private void pb_MouseDown(object sender, MouseEventArgs e)
@@ -425,7 +422,7 @@ namespace TaskPet
                     contextMenu.Show(this, new Point(e.X + ((Control)sender).Left + 20, e.Y + ((Control)sender).Top + 20));
                 }
             }
-            
+
         }
         private void pb_MouseUp(object sender, MouseEventArgs e)
         {
@@ -442,16 +439,16 @@ namespace TaskPet
 
                 Update();
             }
-        }       
+        }
         private void exitToolStripMenuItem_Click(object sender, EventArgs e)
         {
             Close();
-        }       
+        }
 
         public void InitiateThinkBubble()
-        {           
+        {
             Override = true;
-            isThinking = true;            
+            isThinking = true;
         }
 
 
@@ -470,7 +467,7 @@ namespace TaskPet
             customReminder.Show();
             customReminder.Location = new Point(windowRectangle.X + 80, windowRectangle.Y - 250);
 
-            
+
         }
 
         private void specificDateToolStripMenuItem_Click(object sender, EventArgs e)
@@ -520,7 +517,7 @@ namespace TaskPet
             timerListInstance = new List<ReminderTimer>();
 
             if (!File.Exists(@"C:\TaskPet_Data\Timerdb.txt"))
-           {
+            {
                 Directory.CreateDirectory(@"C:\TaskPet_Data");
                 System.IO.File.Create(@"C:\TaskPet_Data\Timerdb.txt");
             }
@@ -531,42 +528,43 @@ namespace TaskPet
             }
 
 
-            
 
 
 
-            
+
+
         }
 
         private void RemoveLatestTimer()
         {
-            foreach(Reminder RM in activeReminders.ToList())
+            foreach (Reminder RM in activeReminders.ToList())
             {
                 if (RM.isDone)
                 {
-                    foreach(ReminderTimer RT in timerListInstance.ToList())
+                    foreach (ReminderTimer RT in timerListInstance.ToList())
                     {
-                        if(RM.TITLE == RT.Title && RM.DESCRIPTION == RT.Description)
-                        {
-                            timerListInstance.Remove(RT);
-                        }else if(RM.TITLE == "Unspecified Timer")
+                        if (RM.TITLE == RT.Title && RM.DESCRIPTION == RT.Description)
                         {
                             timerListInstance.Remove(RT);
                         }
-                        
+                        else if (RM.TITLE == "Unspecified Timer")
+                        {
+                            timerListInstance.Remove(RT);
+                        }
+
                     }
                     activeReminders.Remove(RM);
-                    
+
                     RM.Dispose();
                 }
             }
-            
+
 
             string jsone = JsonConvert.SerializeObject(timerListInstance.ToArray(), Formatting.Indented);
             Directory.CreateDirectory(@"C:\TaskPet_Data");
             System.IO.File.WriteAllText(@"C:\TaskPet_Data\Timerdb.txt", jsone);
 
-                        
+
         }
 
         private void Form1_FormClosing(object sender, FormClosingEventArgs e)
@@ -585,8 +583,8 @@ namespace TaskPet
             {
                 e.Cancel = true;
             }
-            
-           
+
+
         }
 
         private void pb_Click(object sender, EventArgs e)
@@ -606,6 +604,6 @@ namespace TaskPet
 
         }
 
-        
+
     }
 }

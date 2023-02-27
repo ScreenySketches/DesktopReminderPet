@@ -1,21 +1,14 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
 using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 //temp v
-using System.Diagnostics;
 
 namespace TaskPet
 {
     public partial class CustomReminder : Form
     {
         //variables
-        
+
 
         public string PreMenu;
         public bool reminderSpecific;
@@ -23,7 +16,7 @@ namespace TaskPet
         bool Daily;
         bool Weekly;
         bool Monthly;
-        bool OneTime;        
+        bool OneTime;
         public static bool ThinkBubbleClosed;
         public static bool MadeTimer;
         bool isValid = true;
@@ -38,13 +31,13 @@ namespace TaskPet
         int Hours = 0;
 
 
-        
+
 
         public CustomReminder(bool isRS, bool isRT, bool onetime, bool daily, bool weekly, bool monthly)
         {
             InitializeComponent();
             LoadLayout();
-            
+
             reminderSpecific = isRS;
             reminderTimer = isRT;
             OneTime = onetime;
@@ -71,22 +64,22 @@ namespace TaskPet
             else if (reminderTimer)
             {
                 HideReminderMenu();
-                ShowTimerMenu();    
+                ShowTimerMenu();
                 HideSpecificMenu(false);
             }
             else
             {
                 HideTimerMenu();
-                ShowReminderMenu();   
+                ShowReminderMenu();
                 HideSpecificMenu(false);
             }
         }
         private void UpdateTimer_Tick(object sender, EventArgs e)
         {
-            
-            
-            if(OneTime || Daily || Weekly || Monthly)
-            {                   
+
+
+            if (OneTime || Daily || Weekly || Monthly)
+            {
                 if (executeOnce)
                 {
                     if (OneTime)
@@ -99,7 +92,7 @@ namespace TaskPet
                     {
                         SpecificMode = "daily";
                         labelSpecificType.Text = "Daily Reminder";
-                       // labelSpecificType.Location = new Point(155, labelSpecificType.Location.Y);
+                        // labelSpecificType.Location = new Point(155, labelSpecificType.Location.Y);
                     }
                     if (Weekly)
                     {
@@ -118,21 +111,21 @@ namespace TaskPet
                     HideSpecificMenu(true);
                     executeOnce = false;
                 }
-            } 
-           
+            }
+
         }
 
         private void buttonCancelTimer_Click(object sender, EventArgs e)
         {
             reminderTimer = false;
             HideTimerMenu();
-            ShowReminderMenu();           
+            ShowReminderMenu();
         }
 
 
         public void CustomReminder_FormClosed(object sender, FormClosedEventArgs e)
-        {           
-            ThinkBubbleClosed = true;           
+        {
+            ThinkBubbleClosed = true;
         }
 
         private void buttonClose_Click(object sender, EventArgs e)
@@ -156,8 +149,8 @@ namespace TaskPet
 
         private void buttonNextTimer_Click(object sender, EventArgs e)
         {
-            
-            if(int.TryParse(inputSeconds.Text, out Seconds))
+
+            if (int.TryParse(inputSeconds.Text, out Seconds))
             {
                 Seconds = Convert.ToInt32(inputSeconds.Text);
             }
@@ -165,8 +158,8 @@ namespace TaskPet
             {
                 Seconds = 0;
             }
-                       
-            if(int.TryParse(inputMinutes.Text, out Minutes))
+
+            if (int.TryParse(inputMinutes.Text, out Minutes))
             {
                 Minutes = Convert.ToInt32(inputMinutes.Text);
             }
@@ -175,14 +168,14 @@ namespace TaskPet
                 Minutes = 0;
             }
 
-            if(int.TryParse(inputHours.Text, out Hours))
+            if (int.TryParse(inputHours.Text, out Hours))
             {
                 Hours = Convert.ToInt32(inputHours.Text);
             }
 
             CheckIfValid("Timer");
         }
-       
+
         private void buttonBack_Click(object sender, EventArgs e)
         {
             HideConfirmMenu();
@@ -209,7 +202,7 @@ namespace TaskPet
 
         private async void buttonConfirm_Click(object sender, EventArgs e)
         {
-            
+
             await tempdb.NewReminderTimer(inputTitle.Text, inputDescription.Text, Seconds.ToString(), Minutes.ToString(), Hours.ToString());
             Seconds = 0;
             MadeTimer = true;
@@ -269,7 +262,7 @@ namespace TaskPet
             {
                 buttonBackArrow.Hide();
             }
-            
+
         }
 
         private void ShowSpecificMenu()
@@ -316,8 +309,8 @@ namespace TaskPet
         {
             buttonSpecific.Show();
             buttonTimer.Show();
-        }        
-        
+        }
+
         private void HideConfirmMenu()
         {
             labelTitle.Hide();
@@ -338,11 +331,11 @@ namespace TaskPet
             buttonConfirm.Show();
         }
 
-        
+
 
         private void CheckIfValid(string WhatToCheck = "", string notValidState = "", string whatisInvalid = "")
         {
-            if(WhatToCheck == "Timer")
+            if (WhatToCheck == "Timer")
             {
                 if (Seconds > 59 || Minutes > 59 || Hours > 24 || Seconds < 0 || Minutes < 0 || Hours < 0)
                 {
@@ -364,8 +357,8 @@ namespace TaskPet
                 {
                     isValid = true;
                 }
-                
-                
+
+
             }
 
             if (isValid)
